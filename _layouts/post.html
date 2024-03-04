@@ -1,0 +1,50 @@
+---
+layout: default
+---
+
+{% assign date_format = site.date_format | default: "%B %-d, %Y" %}
+
+<article class="post-container">
+  {% if page.cover %}
+    <section class="post-cover">
+      <a href="{{ page.url | relative_url }}"><img src="{{ page.cover | relative_url }}"></a>
+    </section>
+  {% endif %}
+    
+  <header class="post-summary">
+    {% if page.tags and page.tags.size > 0 %}  
+      <ul class="post-tags">
+        {% for tag in page.tags %}
+          <li><h4 class="post-tag">{{ tag }}</h4></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    
+    {% if page.title %}
+      <h1 class="post-title">{{ page.title | markdownify | strip_html }}</h1>
+    {% endif %}
+
+    {% if page.description %}
+      <h2 class="post-description">{{ page.description | markdownify | strip_html }}</h2>
+    {% endif %}
+
+    {% if page.date %}
+      <div class="post-time">
+        <i class="ri-calendar-line"></i>
+        <time>{{ page.date | date: date_format }}</time>
+      </div>
+    {% endif %}
+
+  </header>
+
+  <section class="post-content markdown-body">
+    {{ content }}
+  </section>
+
+</article>
+
+{% if page.comments and site.comments.provider %}
+  <section class="comments-container">
+    {% include comments.html %}
+  </section>
+{% endif %}

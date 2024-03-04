@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<html >
+  
+
+
+
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<title>LDAP Injection - Jensen Blog</title>
+
+<meta name="description" content="How to Prevent LDAP Injection">
+
+
+  <meta name="keywords" content="Security,Checkmarx,C Sharp">
+
+
+
+
+<meta property="og:title" content="LDAP Injection - Jensen Blog">
+<meta property="og:description" content="How to Prevent LDAP Injection">
+<meta property="og:site_name" content="Jensen Blog">
+<meta property="og:url" content="https://jensenxiao.github.io/LDAP-Injection">
+<meta property="og:type" content="article">
+
+
+
+
+  <meta property="og:image" content="https://jensenxiao.github.io/assets/images/LDAP-Injection.png">
+
+
+
+  <meta property="article:published_time" content="2024-02-27T00:00:00+08:00">
+
+
+
+  <meta property="article:modified_time" content="2024-02-28T00:00:00+08:00">
+
+
+<link rel="canonical" href="https://jensenxiao.github.io/LDAP-Injection">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+  
+  <body>
+    <div class="main-container post">
+      <aside class="main-container__aside">
+        <header class="profile">
+  <figure class="profile__avatar">
+    
+      <a href="/"><img src="/assets/images/avatar.png" loading="lazy" alt="Jensen Blog" /></a>
+    
+  </figure>
+  <div>
+    <div>
+      <a href="/">
+        <h1 class="profile__name">Jensen Hsiao</h1>
+        <h2 class="profile__description">Documents my learning experiences</h2>
+      </a>
+    </div>
+    <ul class="profile__socials">
+	
+        <li><a href="https://jensenxiao.github.io/"><i class="ri-home-3-line"></i></a></li>
+        
+        <li><a href="mailto:jensenxiao@gmail.com"><i class="ri-mail-line"></i></a></li>
+
+      
+        <li><a href="https://github.com/JensenXiao" target="_blank"><i class="ri-github-fill"></i></a></li>
+      
+    </ul>
+  </div>
+</header>
+
+        <section class="tagnav">
+  <h2 class="tagnav__title"><i class="ri-price-tag-3-line"></i><span>TAGS</span></h2>
+  <nav class="tagnav__wrapper">
+    
+    
+      <a class="tagnav__item" href="/tag/message/index.html">Message</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/node.js/index.html">Node.js</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/security/index.html">Security</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/tls/ssl/index.html">TLS/SSL</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/c%20sharp/index.html">C Sharp</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/windows/index.html">Windows</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/form/index.html">Form</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/sql/index.html">SQL</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/checkmarx/index.html">Checkmarx</a>
+    
+  
+  </nav>
+</section>
+      </aside>
+      <div class="content">
+        
+        <main>
+
+<article class="post-container">
+  
+    <section class="post-cover">
+      <a href="/LDAP-Injection"><img src="/assets/images/LDAP-Injection.png"></a>
+    </section>
+  
+    
+  <header class="post-summary">
+      
+      <ul class="post-tags">
+        
+          <li><h4 class="post-tag">Security</h4></li>
+        
+          <li><h4 class="post-tag">Checkmarx</h4></li>
+        
+          <li><h4 class="post-tag">C Sharp</h4></li>
+        
+      </ul>
+    
+    
+    
+      <h1 class="post-title">LDAP Injection
+</h1>
+    
+
+    
+      <h2 class="post-description">How to Prevent LDAP Injection
+</h2>
+    
+
+    
+      <div class="post-time">
+        <i class="ri-calendar-line"></i>
+        <time>February 27, 2024</time>
+      </div>
+    
+
+  </header>
+
+  <section class="post-content markdown-body">
+    <h2 id="弱點風險">弱點風險</h2>
+<ul>
+  <li>Checkmarx 弱點掃描掃出，使用 DirectorySearcher 建立 LDAP 查詢句，其中 search.Filter 使用沒有被處理過不受信任的字串，可能會有被注入攻擊的機會。
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">DirectorySearcher</span> <span class="n">search</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">DirectorySearcher</span><span class="p">(</span><span class="n">directoryEntry</span><span class="p">);</span>
+
+  <span class="c1">// 搜尋 AD 帳號名稱為 USER_ID 的項目</span>
+  <span class="n">search</span><span class="p">.</span><span class="n">Filter</span> <span class="p">=</span> <span class="s">"(SAMAccountName="</span> <span class="p">+</span> <span class="n">Obj</span><span class="p">.</span><span class="n">USER_ID</span> <span class="p">+</span> <span class="s">")"</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>這邊在 <a href="https://learn.microsoft.com/zh-tw/archive/blogs/securitytools/antixss-4-0-released">AntiXSS 4.0 Released</a> 程式庫中有提供 LDAP Encoding changes 的方法，可以透過 Encode 的方式將字串轉義，來避免 LDAP Injection。<br />
+<br /></li>
+  <li>開啟 NuGet 套件管理員，搜尋並安裝 AntiXSS 。<br />
+<img src="https://hackmd.io/_uploads/rkFE0gs2T.png" alt="AntiXSS" /><br />
+<br /></li>
+  <li>其中針對 LDAP 有提供了三個方法
+    <ul>
+      <li>Encoder.LdapFilterEncode(string)：
+        <ul>
+          <li>用於編碼 LDAP 查詢過濾器中的值，如 (、)、*、\、/、NUL 等特殊字符。</li>
+          <li>會對這些特殊字符進行轉義，轉義為 LDAP 查詢語法中的安全表示形式。<br />
+<br /></li>
+        </ul>
+      </li>
+      <li>Encoder.LdapDistinguishedNameEncode(string)：
+        <ul>
+          <li>Distinguished Name（DN）在創建或修改LDAP條目時使用的屬性值。</li>
+          <li>用於編碼LDAP分類名稱（DN）中的值，如 ,、=、+、&lt;、&gt;、#、;、\。</li>
+          <li>會對這些特殊字符進行轉義，轉義成為LDAP DN中的安全表示形式。<br />
+<br /></li>
+        </ul>
+      </li>
+      <li>Encoder.LdapDistinguishedNameEncode(string, bool, bool)：
+        <ul>
+          <li>這個重載方法允許你指定額外的參數來控制編碼的行為。</li>
+          <li>第一個參數是要編碼的字符串。</li>
+          <li>第二個參數，用於指示是否編碼域（即 @ 後面的部分）中的特殊字符。
+            <ul>
+              <li>設置為 true，則會對域中的特殊字符進行轉義，默認為 false。</li>
+            </ul>
+          </li>
+          <li>第三個參數，用於指示是否編碼空格。
+            <ul>
+              <li>設置為 true，則會對空格進行轉義，默認為 true。<br />
+<br /></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>通過使用 Encoder.LdapFilterEncode 方法對變數進行編碼，可以有效地解決潛在的弱點風險。
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">using</span> <span class="nn">Microsoft.Security.Application</span><span class="p">;</span>
+
+  <span class="n">DirectorySearcher</span> <span class="n">search</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">DirectorySearcher</span><span class="p">(</span><span class="n">directoryEntry</span><span class="p">);</span>
+
+  <span class="c1">// 對字串編碼</span>
+  <span class="kt">string</span> <span class="n">filteredUserId</span> <span class="p">=</span> <span class="n">Encoder</span><span class="p">.</span><span class="nf">LdapFilterEncode</span><span class="p">(</span><span class="n">Obj</span><span class="p">.</span><span class="n">USER_ID</span><span class="p">);</span>
+
+  <span class="c1">// 搜尋 AD 帳號名稱為 USER_ID 的項目</span>
+  <span class="n">search</span><span class="p">.</span><span class="n">Filter</span> <span class="p">=</span> <span class="s">"(SAMAccountName="</span> <span class="p">+</span> <span class="n">filteredUserId</span> <span class="p">+</span> <span class="s">")"</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/LDAP_Injection_Prevention_Cheat_Sheet.html">LDAP Injection Prevention</a></li>
+  <li><a href="https://learn.microsoft.com/zh-tw/archive/blogs/securitytools/antixss-4-0-released">AntiXSS 4.0 Released</a></li>
+</ul>
+
+  </section>
+
+</article>
+
+
+</main>
+        
+
+
+
+
+
+        <footer class="footer">
+  
+    <section class="copyright">&copy; 2022 ~ 2024</section>
+  
+  <section class="powerby">Powered by <a href="https://jekyllrb.com/">Jekyll</a></section>
+</footer>
+
+      </div>
+    </div>
+  
+    
+
+
+  </body>
+</html>

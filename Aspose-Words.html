@@ -1,0 +1,301 @@
+
+
+<!DOCTYPE html>
+<html >
+  
+
+
+
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<title>EUDC Characters in Aspose.Words - Jensen Blog</title>
+
+<meta name="description" content="How to use User-Defined Characters (EUDC) in Aspose.Words">
+
+
+  <meta name="keywords" content="Windows,Form,C Sharp">
+
+
+
+
+<meta property="og:title" content="EUDC Characters in Aspose.Words - Jensen Blog">
+<meta property="og:description" content="How to use User-Defined Characters (EUDC) in Aspose.Words">
+<meta property="og:site_name" content="Jensen Blog">
+<meta property="og:url" content="https://jensenxiao.github.io/Aspose-Words">
+<meta property="og:type" content="article">
+
+
+
+
+  <meta property="og:image" content="https://jensenxiao.github.io/assets/images/AsposeWords.png">
+
+
+
+  <meta property="article:published_time" content="2024-02-16T00:00:00+08:00">
+
+
+
+  <meta property="article:modified_time" content="2024-02-22T00:00:00+08:00">
+
+
+<link rel="canonical" href="https://jensenxiao.github.io/Aspose-Words">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+  
+  <body>
+    <div class="main-container post">
+      <aside class="main-container__aside">
+        <header class="profile">
+  <figure class="profile__avatar">
+    
+      <a href="/"><img src="/assets/images/avatar.png" loading="lazy" alt="Jensen Blog" /></a>
+    
+  </figure>
+  <div>
+    <div>
+      <a href="/">
+        <h1 class="profile__name">Jensen Hsiao</h1>
+        <h2 class="profile__description">Documents my learning experiences</h2>
+      </a>
+    </div>
+    <ul class="profile__socials">
+	
+        <li><a href="https://jensenxiao.github.io/"><i class="ri-home-3-line"></i></a></li>
+        
+        <li><a href="mailto:jensenxiao@gmail.com"><i class="ri-mail-line"></i></a></li>
+
+      
+        <li><a href="https://github.com/JensenXiao" target="_blank"><i class="ri-github-fill"></i></a></li>
+      
+    </ul>
+  </div>
+</header>
+
+        <section class="tagnav">
+  <h2 class="tagnav__title"><i class="ri-price-tag-3-line"></i><span>TAGS</span></h2>
+  <nav class="tagnav__wrapper">
+    
+    
+      <a class="tagnav__item" href="/tag/message/index.html">Message</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/node.js/index.html">Node.js</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/security/index.html">Security</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/tls/ssl/index.html">TLS/SSL</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/c%20sharp/index.html">C Sharp</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/windows/index.html">Windows</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/form/index.html">Form</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/sql/index.html">SQL</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/checkmarx/index.html">Checkmarx</a>
+    
+  
+  </nav>
+</section>
+      </aside>
+      <div class="content">
+        
+        <main>
+
+<article class="post-container">
+  
+    <section class="post-cover">
+      <a href="/Aspose-Words"><img src="/assets/images/AsposeWords.png"></a>
+    </section>
+  
+    
+  <header class="post-summary">
+      
+      <ul class="post-tags">
+        
+          <li><h4 class="post-tag">Windows</h4></li>
+        
+          <li><h4 class="post-tag">Form</h4></li>
+        
+          <li><h4 class="post-tag">C Sharp</h4></li>
+        
+      </ul>
+    
+    
+    
+      <h1 class="post-title">EUDC Characters in Aspose.Words
+</h1>
+    
+
+    
+      <h2 class="post-description">How to use User-Defined Characters (EUDC) in Aspose.Words
+</h2>
+    
+
+    
+      <div class="post-time">
+        <i class="ri-calendar-line"></i>
+        <time>February 16, 2024</time>
+      </div>
+    
+
+  </header>
+
+  <section class="post-content markdown-body">
+    <h2 id="asposewords-自造字無法顯示問題">Aspose.Words 自造字無法顯示問題</h2>
+
+<ul>
+  <li>
+    <p>套印 word 文件時，EUDC 自造字無法正確顯示</p>
+
+    <p><img src="https://hackmd.io/_uploads/SJn6ENEn6.png" alt="難字不正常" /></p>
+  </li>
+  <li>根據不同類型檔案設定
+    <ul>
+      <li><strong>.TTE</strong> 設定字型檔案與系統字型連結
+        <ul>
+          <li>
+            <p>當拿到字造字型檔放到電腦後，要設定機碼讓它連結到系統字型<br />
+  <img src="https://hackmd.io/_uploads/Bynz4Fr3p.png" alt="字型檔" /></p>
+          </li>
+          <li>
+            <p>使用 Administrator 在開始中輸入「regedit」開啟登陸編輯程式<br />
+  <img src="https://hackmd.io/_uploads/ryFKMFr3T.png" alt="Regedit" /></p>
+          </li>
+          <li>
+            <p>機碼目錄為 電腦\HKEY_CURRENT_USER\EUDC\950<br />
+  <img src="https://hackmd.io/_uploads/SJsbXKBha.png" alt="機碼" /></p>
+          </li>
+          <li>
+            <p>機碼 SystemDefaultEUDCFont，修改數值資料為 EUDC 字型檔所在目錄<br />
+  <img src="https://hackmd.io/_uploads/HkKKmKB3p.png" alt="數值資料" /></p>
+          </li>
+        </ul>
+      </li>
+      <li><strong>.TTF</strong> 安裝字型檔至系統
+        <ul>
+          <li>
+            <p>使用 Administrator 開啟字型檔，點選安裝<br />
+  <img src="https://hackmd.io/_uploads/Bynz4Fr3p.png" alt="字型檔" /></p>
+
+            <p><img src="https://hackmd.io/_uploads/B1yNGKHhp.png" alt="TTF檔案安裝" /></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>將系統重新啟動</p>
+  </li>
+  <li>開啟 Word 檔，另存成 PDF 檔案來驗證 一般字及自造字 是否完整呈現</li>
+</ul>
+
+<h2 id="asposewords-轉-pdf-檔只有顯示自造字">Aspose.Words 轉 PDF 檔，只有顯示自造字</h2>
+
+<ul>
+  <li>
+    <p>使用 Aspose.Words 將 word 文件轉 PDF 檔時，只有 EUDC 自造字正確顯示，其他字型變成黑點</p>
+
+    <p><img src="https://hackmd.io/_uploads/SJBMHNN26.png" alt="系統字型錯誤" /></p>
+  </li>
+  <li>在 C# 程式 SetFontsSources 載入字型方法中
+    <ul>
+      <li>除了載入自造字型(FileFontSource)</li>
+      <li>也需載入系統自型(SystemFontSource)</li>
+    </ul>
+
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">Aspose</span><span class="p">.</span><span class="n">Words</span><span class="p">.</span><span class="n">Document</span> <span class="n">doc</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Aspose</span><span class="p">.</span><span class="n">Words</span><span class="p">.</span><span class="nf">Document</span><span class="p">(</span><span class="s">@"C:\EUDC\Test.doc"</span><span class="p">);</span>
+
+  <span class="n">FontSettings</span><span class="p">.</span><span class="n">DefaultInstance</span><span class="p">.</span><span class="nf">SetFontsSources</span><span class="p">(</span>
+      <span class="k">new</span> <span class="n">FontSourceBase</span><span class="p">[]</span>
+      <span class="p">{</span> 
+          <span class="k">new</span> <span class="nf">SystemFontSource</span><span class="p">(),</span> 
+          <span class="k">new</span> <span class="nf">FileFontSource</span><span class="p">(</span><span class="s">@"C:\EUDC\JH.TTE"</span><span class="p">)</span> 
+      <span class="p">});</span>
+        
+  <span class="n">doc</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="s">@"C:\EUDC\Test.pdf"</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>補上之後查看 Test.pdf 一般字及自造字皆有正確呈現</p>
+
+    <p><img src="https://hackmd.io/_uploads/r1drBVNhp.png" alt="字型正常顯示" /></p>
+  </li>
+</ul>
+
+  </section>
+
+</article>
+
+
+</main>
+        
+
+
+
+
+
+        <footer class="footer">
+  
+    <section class="copyright">&copy; 2022 ~ 2024</section>
+  
+  <section class="powerby">Powered by <a href="https://jekyllrb.com/">Jekyll</a></section>
+</footer>
+
+      </div>
+    </div>
+  
+    
+
+
+  </body>
+</html>
