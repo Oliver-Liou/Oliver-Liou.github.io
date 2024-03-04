@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<html >
+  
+
+
+
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<title>Telegram Bot - Oliver Blog</title>
+
+<meta name="description" content="How to use Telegram Bot in Node.js">
+
+
+  <meta name="keywords" content="Message,Node.js">
+
+
+
+
+<meta property="og:title" content="Telegram Bot - Oliver Blog">
+<meta property="og:description" content="How to use Telegram Bot in Node.js">
+<meta property="og:site_name" content="Oliver Blog">
+<meta property="og:url" content="http://localhost:4000/TelegramBot">
+<meta property="og:type" content="article">
+
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/Telegram-Coin-Logo.jpg">
+
+
+
+  <meta property="article:published_time" content="2023-04-19T00:00:00+08:00">
+
+
+
+  <meta property="article:modified_time" content="2024-02-17T00:00:00+08:00">
+
+
+<link rel="canonical" href="http://localhost:4000/TelegramBot">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+  
+  <body>
+    <div class="main-container post">
+      <aside class="main-container__aside">
+        <header class="profile">
+  <figure class="profile__avatar">
+    
+      <a href="/"><img src="/assets/images/avatar.png" loading="lazy" alt="Oliver Blog" /></a>
+    
+  </figure>
+  <div>
+    <div>
+      <a href="/">
+        <h1 class="profile__name">Oliver Liu</h1>
+        <h2 class="profile__description">Documents my learning experiences</h2>
+      </a>
+    </div>
+    <ul class="profile__socials">
+	
+        <li><a href="https://oliver-liou.github.io/"><i class="ri-home-3-line"></i></a></li>
+        
+        <li><a href="yancheng199906@gmail.com"><i class="ri-mail-line"></i></a></li>
+
+      
+        <li><a href="https://github.com/Oliver-Liou/" target="_blank"><i class="ri-github-fill"></i></a></li>
+      
+    </ul>
+  </div>
+</header>
+
+        <section class="tagnav">
+  <h2 class="tagnav__title"><i class="ri-price-tag-3-line"></i><span>TAGS</span></h2>
+  <nav class="tagnav__wrapper">
+    
+    
+      <a class="tagnav__item" href="/tag/message/index.html">Message</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/node.js/index.html">Node.js</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/security/index.html">Security</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/tls/ssl/index.html">TLS/SSL</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/c%20sharp/index.html">C Sharp</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/windows/index.html">Windows</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/form/index.html">Form</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/sql/index.html">SQL</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/checkmarx/index.html">Checkmarx</a>
+    
+  
+  </nav>
+</section>
+      </aside>
+      <div class="content">
+        
+        <main>
+
+<article class="post-container">
+  
+    <section class="post-cover">
+      <a href="/TelegramBot"><img src="/assets/images/Telegram-Coin-Logo.jpg"></a>
+    </section>
+  
+    
+  <header class="post-summary">
+      
+      <ul class="post-tags">
+        
+          <li><h4 class="post-tag">Message</h4></li>
+        
+          <li><h4 class="post-tag">Node.js</h4></li>
+        
+      </ul>
+    
+    
+    
+      <h1 class="post-title">Telegram Bot
+</h1>
+    
+
+    
+      <h2 class="post-description">How to use Telegram Bot in Node.js
+</h2>
+    
+
+    
+      <div class="post-time">
+        <i class="ri-calendar-line"></i>
+        <time>April 19, 2023</time>
+      </div>
+    
+
+  </header>
+
+  <section class="post-content markdown-body">
+    <h2 id="creating-a-bot-using-botfather">Creating a bot using BotFather</h2>
+<ul>
+  <li>
+    <p>打開 Telegram，在搜尋框輸入 @BotFather，點擊第一項的搜尋結果。<br />
+  <img src="https://hackmd.io/_uploads/Bk5linasp.png" alt="BotFather" /></p>
+  </li>
+  <li>
+    <p>輸入 /start 會出現支援的指令說明。<br />
+  <img src="https://hackmd.io/_uploads/rJ1_nhToa.png" alt="start" /></p>
+  </li>
+  <li>
+    <p>輸入 /newbot 建立機器人。<br />
+  <img src="https://hackmd.io/_uploads/SJ_Manpsa.png" alt="newbot" /></p>
+  </li>
+  <li>
+    <p>輸入機器人的名稱</p>
+
+    <ul>
+      <li>
+        <p>必須以bot結尾。<br />
+  <img src="https://hackmd.io/_uploads/ByN41TTsp.png" alt="命名規則1" /></p>
+      </li>
+      <li>
+        <p>若有人重複使用會請你重新設置。<br />
+  <img src="https://hackmd.io/_uploads/B13E1pTj6.png" alt="命名規則2" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>創建成功會取得 <strong>機器人名稱</strong> &amp; <strong>token</strong>。<br />
+  <img src="https://hackmd.io/_uploads/rJkie6Ti6.png" alt="Done" /></p>
+  </li>
+  <li>
+    <p>在 Telegram 搜尋機器人就可以找到你所創建的機器人。</p>
+  </li>
+</ul>
+
+<h2 id="find-group-chatid">Find Group ChatID</h2>
+<ul>
+  <li>
+    <p>首先需要將創建好的機器人加入聊天群組。</p>
+  </li>
+  <li>在瀏覽器中輸入 https://api.telegram.org/bot[your_token]/getUpdates
+    <ul>
+      <li>[your_token] 改為在創建時獲得的token</li>
+    </ul>
+  </li>
+  <li>會回傳一段 JSON。
+    <ul>
+      <li>“chat” object 中 group_ID 即是群組的 ChatID
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "update_id":8393,
+  "message":
+  {
+      "message_id":3,
+      "from":{"id":7474,"first_name":"AAA"},
+      "chat":{"id":&lt;group_ID&gt;,"title":""},
+      "date":25497,
+      "new_chat_participant":{"id":71,"first_name":"Name","username":"YourBotName"}
+  }
+}
+</code></pre></div>        </div>
+      </li>
+      <li>If you created the new group with the bot and you only get {“ok”:true,“result”:[]}。
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "ok": true,
+  "result": []
+}
+</code></pre></div>        </div>
+      </li>
+      <li>remove and add the bot again to the group。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="using-in-nodejs">Using in Node.js</h2>
+<ul>
+  <li>cd 至專案路徑。
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">$</span> <span class="nx">cd</span> <span class="nx">Testbot</span>
+</code></pre></div>    </div>
+  </li>
+  <li>npm init，會建立 package.json 方便管理 npm 的 library。
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nx">npm</span> <span class="nx">init</span>
+</code></pre></div>    </div>
+  </li>
+  <li>安裝Telegram Bot API。
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">node</span><span class="o">-</span><span class="nx">telegram</span><span class="o">-</span><span class="nx">bot</span><span class="o">-</span><span class="nx">api</span> <span class="o">--</span><span class="nx">save</span>
+
+  <span class="nx">or</span>
+
+  <span class="nx">npm</span> <span class="nx">install</span> <span class="o">--</span><span class="nx">save</span><span class="o">-</span><span class="nx">dev</span> <span class="p">@</span><span class="nd">types</span><span class="sr">/node-telegram-bot-ap</span><span class="err">i
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>在程式中應用</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">var</span> <span class="nx">TelegramBot</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">node-telegram-bot-api</span><span class="dl">'</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">your_token</span><span class="dl">'</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">groupId</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">your_groupId</span><span class="dl">'</span> <span class="p">;</span>
+	
+  <span class="c1">//使用Long Polling的方式與Telegram伺服器建立連線</span>
+  <span class="c1">//括號裡面的內容需要改為在創建時獲得的token</span>
+  <span class="kd">var</span> <span class="nx">bot</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TelegramBot</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="p">{</span><span class="na">polling</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
+	
+  <span class="c1">//收到Start訊息時會觸發這段程式</span>
+  <span class="nx">bot</span><span class="p">.</span><span class="nf">onText</span><span class="p">(</span><span class="sr">/</span><span class="se">\/</span><span class="sr">start/</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">chatId</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">chat</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="c1">//用戶的ID</span>
+      <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">你好</span><span class="dl">'</span><span class="p">;</span> <span class="c1">//回應內容</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span><span class="nx">chatId</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span> <span class="c1">//發送訊息的function</span>
+  <span class="p">});</span>
+	 
+  <span class="c1">//收到/cal開頭的訊息時會觸發這段程式</span>
+  <span class="c1">//接收用戶發送的數學表達式，計算其結果，然後將結果回傳給用戶。</span>
+  <span class="nx">bot</span><span class="p">.</span><span class="nf">onText</span><span class="p">(</span><span class="sr">/</span><span class="se">\/</span><span class="sr">cal </span><span class="se">(</span><span class="sr">.+</span><span class="se">)</span><span class="sr">/</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span> <span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">fromId</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="k">from</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="c1">//用戶的ID</span>
+      <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">[^</span><span class="sr">-()</span><span class="se">\d/</span><span class="sr">*+.</span><span class="se">]</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">''</span><span class="p">);</span>
+      <span class="nx">resp</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">計算結果為: </span><span class="dl">'</span> <span class="o">+</span> <span class="nf">eval</span><span class="p">(</span><span class="nx">resp</span><span class="p">);</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span><span class="nx">fromId</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nf">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span> <span class="nx">groupId</span><span class="p">,</span> <span class="dl">"</span><span class="s2">測試發送</span><span class="dl">"</span> <span class="p">);</span>
+  <span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://github.com/yagop/node-telegram-bot-api">Node.js Telegram Bot API</a></li>
+  <li><a href="https://github.com/yagop/node-telegram-bot-api/blob/master/doc/api.md">API Reference</a></li>
+</ul>
+
+  </section>
+
+</article>
+
+
+</main>
+        
+
+
+
+
+
+        <footer class="footer">
+  
+    <section class="copyright">&copy; 2022 ~ 2024</section>
+  
+  <section class="powerby">Powered by <a href="https://jekyllrb.com/">Jekyll</a></section>
+</footer>
+
+      </div>
+    </div>
+  
+    
+
+
+  </body>
+</html>
