@@ -201,7 +201,7 @@ sent in the clear.
   
   
 ## Reference  
-- [Self-signed certificate](https://jensenxiao.github.io/Self-signed-certificate)  
+- [Self-signed certificate](https://oliver-liou.github.io/Self-signed-certificate)  
 - [RabbitMQ - TLS Support](https://www.rabbitmq.com/ssl.html)  
 - [RabbitMQ - google groups](https://groups.google.com/g/rabbitmq-users/c/Sxm0tNWCJuM?pli=1)  
 

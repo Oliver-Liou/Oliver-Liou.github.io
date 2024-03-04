@@ -3,7 +3,7 @@ require "tmpdir"
 require "bundler/setup"
 require "jekyll"
 
-GITHUB_REPONAME = "JensenXiao/JensenXiao.github.io"
+GITHUB_REPONAME = "Oliver-Liou/Oliver-Liou.github.io"
 
 ENV["JEKYLL_ENV"] = "production"
 
