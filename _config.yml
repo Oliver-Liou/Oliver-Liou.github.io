@@ -1,6 +1,6 @@
 # Site settings
 url: https://jensenxiao.github.io
-title: 'Jensen Blog'
+title: 'Oliver Blog'
 description: 'Card style Jekyll theme for blog'
 title_seperator: '-' # "-" (default), "|", ...
 locale: null # null (default), en-US, zh-CN, zh-TW, ...
@@ -11,11 +11,11 @@ baseurl: ''
 
 # Profile
 profile:
-  name: 'Jensen Hsiao'
+  name: 'Oliver Liu'
   description: 'Documents my learning experiences'
   avatar: 'assets/images/avatar.png'
   socials:
-    github: 'https://github.com/JensenXiao'
+    github: 'https://github.com/Oliver-Liou/'
     twitter: 'https://twitter.com/'
     facebook: 'https://facebook.com/'
     instagram: 'https://instagram.com/'
