@@ -71,15 +71,15 @@ last_modified_at: 2024-02-17
 	```
 - npm 指令作初始化，這會自動建立一個 package.json 方便管理 npm 的 library 。過程中不停按 Enter 即可。
 	``` js
-		npm init
+	npm init
 	```
 - 安裝Telegram Bot API 程式庫
 	``` js
-		npm install node-telegram-bot-api --save
+	npm install node-telegram-bot-api --save
 
 		or
 
-		npm install --save-dev @types/node-telegram-bot-api
+	npm install --save-dev @types/node-telegram-bot-api
 	```
     
 - 在程式中應用  
