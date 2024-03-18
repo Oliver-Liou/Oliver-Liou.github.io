@@ -4,7 +4,7 @@ title: Github Page Jekyll
 date: 2024-03-18
 description: 如何使用 Jekyll 建立 Github Page Blog
 tags: [Jekyll , Github]
-cover: 'assets/images/Telegram-Coin-Logo.jpg'
+cover: 'assets/images/Jekyll_logo.png'
 last_modified_at: 2024-02-17
 --- 
 
