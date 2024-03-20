@@ -30,7 +30,7 @@
 
 <title>Telegram Bot - Oliver Blog</title>
 
-<meta name="description" content="How to use Telegram Bot in Node.js">
+<meta name="description" content="如何建立 Telegram Bot 並透過 Node.js 使用">
 
 
   <meta name="keywords" content="Message,Node.js">
@@ -39,7 +39,7 @@
 
 
 <meta property="og:title" content="Telegram Bot - Oliver Blog">
-<meta property="og:description" content="How to use Telegram Bot in Node.js">
+<meta property="og:description" content="如何建立 Telegram Bot 並透過 Node.js 使用">
 <meta property="og:site_name" content="Oliver Blog">
 <meta property="og:url" content="https://oliver-liou.github.io/TelegramBot">
 <meta property="og:type" content="article">
@@ -51,7 +51,7 @@
 
 
 
-  <meta property="article:published_time" content="2023-04-19T00:00:00+08:00">
+  <meta property="article:published_time" content="2023-10-19T00:00:00+08:00">
 
 
 
@@ -98,7 +98,7 @@
         <li><a href="mailto:yancheng199906@gmail.com"><i class="ri-mail-line"></i></a></li>
 
       
-        <li><a href="https://github.com/Oliver-Liou" target="_blank"><i class="ri-github-fill"></i></a></li>
+        <li><a href="https://github.com/Oliver-Liou/" target="_blank"><i class="ri-github-fill"></i></a></li>
       
     </ul>
   </div>
@@ -109,19 +109,19 @@
   <nav class="tagnav__wrapper">
     
     
-      <a class="tagnav__item" href="/tag/message/index.html">Message</a>
-    
-    
-    
-      <a class="tagnav__item" href="/tag/node.js/index.html">Node.js</a>
-    
-    
-    
       <a class="tagnav__item" href="/tag/security/index.html">Security</a>
     
     
     
       <a class="tagnav__item" href="/tag/tls/ssl/index.html">TLS/SSL</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/message/index.html">Message</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/node.js/index.html">Node.js</a>
     
     
     
@@ -142,6 +142,22 @@
     
     
       <a class="tagnav__item" href="/tag/checkmarx/index.html">Checkmarx</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/jekyll/index.html">Jekyll</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/github/index.html">Github</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/git/index.html">Git</a>
+    
+    
+    
+      <a class="tagnav__item" href="/tag/ssh/index.html">SSH</a>
     
   
   </nav>
@@ -175,21 +191,21 @@
     
 
     
-      <h2 class="post-description">How to use Telegram Bot in Node.js
+      <h2 class="post-description">如何建立 Telegram Bot 並透過 Node.js 使用
 </h2>
     
 
     
       <div class="post-time">
         <i class="ri-calendar-line"></i>
-        <time>April 19, 2023</time>
+        <time>October 19, 2023</time>
       </div>
     
 
   </header>
 
   <section class="post-content markdown-body">
-    <h2 id="creating-a-bot-using-botfather">Creating a bot using BotFather</h2>
+    <h2 id="使用-botfather-建立-telegram-bot">使用 BotFather 建立 Telegram Bot</h2>
 <ul>
   <li>
     <p>打開 Telegram，在搜尋框輸入 @BotFather，點擊第一項的搜尋結果。<br />
@@ -226,7 +242,7 @@
   </li>
 </ul>
 
-<h2 id="find-group-chatid">Find Group ChatID</h2>
+<h2 id="獲取群組id的方法">獲取群組ID的方法</h2>
 <ul>
   <li>
     <p>首先需要將創建好的機器人加入聊天群組。</p>
@@ -264,20 +280,22 @@
   </li>
 </ul>
 
-<h2 id="using-in-nodejs">Using in Node.js</h2>
+<h2 id="nodejs-coding">Node.js Coding</h2>
 <ul>
-  <li>cd 至專案路徑。
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">$</span> <span class="nx">cd</span> <span class="nx">Testbot</span>
+  <li>
+    <p>建立一個資料夾名為【nodejsbot】，然後在命令行介面使用 cd 指令進入該資料夾</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">$</span> <span class="nx">cd</span> <span class="nx">nodejsbot</span>
 </code></pre></div>    </div>
   </li>
-  <li>npm init，會建立 package.json 方便管理 npm 的 library。
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nx">npm</span> <span class="nx">init</span>
+  <li>npm 指令作初始化，這會自動建立一個 package.json 方便管理 npm 的 library 。過程中不停按 Enter 即可。
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">npm</span> <span class="nx">init</span>
 </code></pre></div>    </div>
   </li>
-  <li>安裝Telegram Bot API。
+  <li>安裝Telegram Bot API 程式庫
     <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">node</span><span class="o">-</span><span class="nx">telegram</span><span class="o">-</span><span class="nx">bot</span><span class="o">-</span><span class="nx">api</span> <span class="o">--</span><span class="nx">save</span>
 
-  <span class="nx">or</span>
+      <span class="nx">or</span>
 
   <span class="nx">npm</span> <span class="nx">install</span> <span class="o">--</span><span class="nx">save</span><span class="o">-</span><span class="nx">dev</span> <span class="p">@</span><span class="nd">types</span><span class="sr">/node-telegram-bot-ap</span><span class="err">i
 </span></code></pre></div>    </div>
@@ -286,37 +304,37 @@
     <p>在程式中應用</p>
 
     <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">var</span> <span class="nx">TelegramBot</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">node-telegram-bot-api</span><span class="dl">'</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">your_token</span><span class="dl">'</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">groupId</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">your_groupId</span><span class="dl">'</span> <span class="p">;</span>
-	
-  <span class="c1">//使用Long Polling的方式與Telegram伺服器建立連線</span>
-  <span class="c1">//括號裡面的內容需要改為在創建時獲得的token</span>
+  <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(your_token)</span><span class="dl">'</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">groupId</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(your_groupId)</span><span class="dl">'</span> <span class="p">;</span>
+  <span class="c1">//括號裡面的內容需要改為獲得的Token與groupId</span>
   <span class="kd">var</span> <span class="nx">bot</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TelegramBot</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="p">{</span><span class="na">polling</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
-	
+  <span class="c1">//使用Long Polling的方式與Telegram伺服器建立連線</span>
   <span class="c1">//收到Start訊息時會觸發這段程式</span>
   <span class="nx">bot</span><span class="p">.</span><span class="nf">onText</span><span class="p">(</span><span class="sr">/</span><span class="se">\/</span><span class="sr">start/</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">chatId</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">chat</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="c1">//用戶的ID</span>
-      <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">你好</span><span class="dl">'</span><span class="p">;</span> <span class="c1">//回應內容</span>
+      <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">你好</span><span class="dl">'</span><span class="p">;</span> <span class="c1">//括號裡面的為回應內容，可以隨意更改</span>
       <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span><span class="nx">chatId</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span> <span class="c1">//發送訊息的function</span>
   <span class="p">});</span>
-	 
+	
   <span class="c1">//收到/cal開頭的訊息時會觸發這段程式</span>
-  <span class="c1">//接收用戶發送的數學表達式，計算其結果，然後將結果回傳給用戶。</span>
   <span class="nx">bot</span><span class="p">.</span><span class="nf">onText</span><span class="p">(</span><span class="sr">/</span><span class="se">\/</span><span class="sr">cal </span><span class="se">(</span><span class="sr">.+</span><span class="se">)</span><span class="sr">/</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span> <span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">fromId</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="k">from</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="c1">//用戶的ID</span>
       <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">[^</span><span class="sr">-()</span><span class="se">\d/</span><span class="sr">*+.</span><span class="se">]</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">''</span><span class="p">);</span>
+      <span class="c1">// match[1]的意思是 /cal 後面的所有內容</span>
       <span class="nx">resp</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">計算結果為: </span><span class="dl">'</span> <span class="o">+</span> <span class="nf">eval</span><span class="p">(</span><span class="nx">resp</span><span class="p">);</span>
-      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span><span class="nx">fromId</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span>
+      <span class="c1">// eval是用作執行計算的function</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span><span class="nx">fromId</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span> <span class="c1">//發送訊息的function</span>
   <span class="p">});</span>
 
   <span class="nf">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span> <span class="nx">groupId</span><span class="p">,</span> <span class="dl">"</span><span class="s2">測試發送</span><span class="dl">"</span> <span class="p">);</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span> <span class="nx">groupId</span><span class="p">,</span> <span class="dl">"</span><span class="s2">加薪可不可以</span><span class="dl">"</span> <span class="p">);</span> <span class="c1">//發送訊息的function</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Salary Up Up!</span><span class="dl">"</span><span class="p">);</span>
   <span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
 </code></pre></div>    </div>
   </li>
 </ul>
 
-<h2 id="reference">Reference</h2>
+<h2 id="參考資料">參考資料</h2>
 <ul>
   <li><a href="https://github.com/yagop/node-telegram-bot-api">Node.js Telegram Bot API</a></li>
   <li><a href="https://github.com/yagop/node-telegram-bot-api/blob/master/doc/api.md">API Reference</a></li>
