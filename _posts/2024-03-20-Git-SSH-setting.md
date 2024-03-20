@@ -104,4 +104,5 @@ last_modified_at: 2024-03-20
 - 貼上 SSH Url 後點選旁邊空白處會自動完成所有欄位，等待 Clone 亮起並點選即可完成Clone。
 ![sourcetree_ssh_setting8](https://hackmd.io/_uploads/HJTIjRPAT.png)
 - 恭喜你完成上面幾點操作後，在此 Clone 的專案可以不用登入 Git 並進行 Git 相關操作！
+![8-1.thumb128](assets\images\posts_images\2024-03-20-Git-SSH-setting\8-1.thumb128.png)
 
