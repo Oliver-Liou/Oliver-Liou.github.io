@@ -1,99 +1,43 @@
-# Site settings
-url: https://oliver-liou.github.io
-title: 'Oliver Blog'
-description: 'Card style Jekyll theme for blog'
-title_seperator: '-' # "-" (default), "|", ...
-locale: null # null (default), en-US, zh-CN, zh-TW, ...
-date_format: # "%B %-d, %Y" (default), "%Y. %m. %d", ... https://www.shortcutfoo.com/app/dojos/ruby-date-format-strftime/cheatsheet
-footer_copyright: '&copy; 2022 ~ 2024'
-og_image: 'assets/images/jekyll-theme.png' # Default OpenGraph Image
-baseurl: ''
+title: Jensen Hsiao's Blog
+email: jensenxiao@gmail.com
+author: Jensen Hsiao
 
-# Profile
-profile:
-  name: 'Oliver Liu'
-  description: 'Documents my learning experiences'
-  avatar: 'assets/images/avatar.png'
-  socials:
-    github: 'https://github.com/Oliver-Liou/'
-    twitter: 'https://twitter.com/'
-    facebook: 'https://facebook.com/'
-    instagram: 'https://instagram.com/'
-    youtube: 'https://youtube.com/'
+copyright: "Unpublished Work (cleft) 2023-{currentYear}.  {author}"
 
-# Comments
-comments:
-  provider: false # false (default), "utterances", "disqus"
-  utterances:
-    repo: # "github_username/repo_name"
-    theme: # "github-light" (default), "github-dark", "preferred-color-scheme", "github-dark-orange", "icy-dark", "dark-blue", "photon-dark", "boxy-light", "gruvbox-dark"
-    issue_term: # "pathname" (default)
-    label: # null (default), Yout github repo issue label
-  disqus:
-    shortname:
+description: >-
+  Documents my learning experiences.
 
-# SEO Related
-google_site_verification:
-bing_site_verification:
-naver_site_verification:
-yandex_site_verification:
-baidu_site_verification:
+baseurl: ""
+url: "https://jensenxiao.github.io"
+favicon: ""
 
-# Analytics
-analytics:
-  provider: false # false (default), "google", "google-universal", "google-gtag"
-  google:
-    tracking_id:
-    anonymize_ip: # true, false (default)
+yat:
+  date_format: "%b %d, %Y"
 
-# Your post default values
-defaults:
-  - values:
-      layout: post
-      comments: true
+# debug: false
 
-permalink: /:title # "/:title", ":year:month:day/:title", ... https://jekyllrb.com/docs/permalinks/
+# header_transparent: true
 
-# Pagination
-pagination:
-  enabled: true
-  per_page: 4 # Posts per page
-  permalink: '/page:num/'
-  limit: 0
-  sort_field: 'date'
-  sort_reverse: true
-  trail:
-    before: 2
-    after: 2
+sitemap: true
 
-autopages:
-  enabled: true
-  collections:
-    enabled: false
-  categories:
-    enabled: false
-  tags:
-    enabled: true
-    layouts:
-      - autopage_tags.html
+night_mode: "off"
+
+header_pages:
+  - index.html
+  - archives.html
+  - categories.html
+  - tags.html
+  - about.md
+
+paginate: 5
 
 markdown: kramdown
-highlighter: rouge
-lsi: false
-excerpt_separator: "\n\n"
-incremental: false
-
 kramdown:
   input: GFM
-  hard_wrap: false
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  smart_quotes: lsquo,rsquo,ldquo,rdquo
-  enable_coderay: false
 
 plugins:
-  - jekyll-paginate-v2
+  - jekyll-feed
+  - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-spaceship
