@@ -13,10 +13,10 @@ Where I share insights and experiences accumulated from my work and side project
 - 💼 Software Developer
 
 You can find me from:
-- ⌨️ GitHub: [JensenXiao](https://github.com/JensenXiao)
-- ✉️ Email: [JensenXiao](mailto:jensenxiao@gmail.com)
+- ⌨️ GitHub: [Oliver-Liou](https://github.com/Oliver-Liou)
+- ✉️ Email: [Oliver-Liou](mailto:yancheng199906@gmail.com)
 
 
 
-![GH Chart](https://ghchart.rshah.org/JensenXiao)
+![GH Chart](https://ghchart.rshah.org/Oliver-Liou)
 
