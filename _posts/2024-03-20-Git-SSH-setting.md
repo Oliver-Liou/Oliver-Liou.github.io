@@ -111,3 +111,4 @@ last_modified_at: 2024-03-20
 - 恭喜你完成上面幾點操作後，在此 Clone 的專案可以不用登入 Git 並進行 Git 相關操作！
 
 ![8-1.thumb128]({{ site.baseurl }}/assets/images/post/Git-SSH-setting/8-1.thumb128.png)
+
