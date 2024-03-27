@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://oliver-liou.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://oliver-liou.github.io/" rel="alternate" type="text/html" /><updated>2024-03-27T07:25:40+00:00</updated><id>https://oliver-liou.github.io/feed.xml</id><title type="html">Oliver Liu’s Blog</title><subtitle>Documents my learning experiences.</subtitle><author><name>Oliver Liu</name></author><entry><title type="html">生成 SSH Key 並設定連結 Git</title><link href="https://oliver-liou.github.io/markdown/2024/03/20/Git-SSH-setting.html" rel="alternate" type="text/html" title="生成 SSH Key 並設定連結 Git" /><published>2024-03-20T00:00:00+00:00</published><updated>2024-03-20T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/2024/03/20/Git-SSH-setting</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/2024/03/20/Git-SSH-setting.html"><![CDATA[<h2 id="生成電腦-ssh-金鑰">生成電腦 SSH 金鑰</h2>
+<h3 id="windows系統">windows系統</h3>
+<ul>
+  <li>
+    <p>打開 <strong>cmd</strong> 輸入下方指令查看有沒有ssh鑰匙檔。
+  <img src="https://hackmd.io/_uploads/ryaKly_Ra.png" alt="sourcetree_ssh_setting11" /></p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  cd %HOMEPATH%
+  dir .ssh
+</code></pre></div>    </div>
+    <p>or</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  dir %HOMEDRIVE%%HOMEPATH%\.ssh
+</code></pre></div>    </div>
+  </li>
+  <li>若金鑰不存在就打下列的指令生成ssh密鑰。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ssh-keygen -t rsa -C "your_emial@examle.com"
+</code></pre></div>    </div>
+    <p>“your_emial@examle.com” 輸入你的git帳號。</p>
+  </li>
+  <li>
+    <p>接下來只要 Enter 保持預設值即可。</p>
+  </li>
+  <li>生成完畢後會在 userpath/.ssh 中生成SSH Key。
+    <ul>
+      <li>id_rsa 為密鑰。</li>
+      <li>id_rsa.pub 為公鑰。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="linux系統sourcetree">linux系統/Sourcetree</h3>
+<ul>
+  <li>
+    <p>打開<strong>Terminal</strong> 
+<img src="https://hackmd.io/_uploads/H1ZbRCwR6.png" alt="sourcetree_ssh_setting9" /></p>
+  </li>
+  <li>鍵入下方指令查看有沒有ssh鑰匙檔。
+<img src="https://hackmd.io/_uploads/HkbqA0vRT.png" alt="sourcetree_ssh_setting10" />
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ls -al ~/.ssh
+</code></pre></div>    </div>
+  </li>
+  <li>若金鑰不存在就打下列的指令生成ssh密鑰。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ssh-keygen -t rsa -C "your_emial@examle.com"
+</code></pre></div>    </div>
+    <p>“your_emial@examle.com” 輸入你的git帳號。</p>
+  </li>
+  <li>
+    <p>接下來只要 Enter 保持預設值即可。</p>
+  </li>
+  <li>生成完畢後會在 userpath/.ssh 中生成SSH Key。
+    <ul>
+      <li>id_rsa 為密鑰。</li>
+      <li>id_rsa.pub 為公鑰。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="設定金鑰">設定金鑰</h2>
+
+<h3 id="sourcetree">Sourcetree</h3>
+<ul>
+  <li>
+    <p>Tools -&gt; <strong>Options</strong> 開啟設定。
+<img src="https://hackmd.io/_uploads/H1AgFpPR6.png" alt="sourcetree_ssh_setting1" /></p>
+  </li>
+  <li>在 General 中設定 <strong>SSH Client Configuration</strong> 內容。
+    <ul>
+      <li>SSH Key 選擇電腦所產出的ssh密鑰id_rsa。</li>
+      <li>SSH Client 選擇OpenSSH作為連接方式。
+<img src="https://hackmd.io/_uploads/H1_ZF6vRT.png" alt="sourcetree_ssh_setting2" /></li>
+    </ul>
+  </li>
+  <li>設定完畢點及右下方OK即可完成設定。</li>
+</ul>
+
+<h3 id="gitlab">Gitlab</h3>
+
+<ul>
+  <li>
+    <p>點選使用者圖示選擇 Edit profile 進入編輯個人資料的畫面。
+<img src="https://hackmd.io/_uploads/rkV5naPAa.png" alt="sourcetree_ssh_setting3" /></p>
+  </li>
+  <li>
+    <p>選擇 SSH Keys 點擊 Add new key 新增 SSH Key 公鑰。
+<img src="https://hackmd.io/_uploads/SJ-xMJ_RT.png" alt="sourcetree_ssh_setting4" /></p>
+  </li>
+  <li>輸入鑰新增 SSH Key 的資訊。
+    <ul>
+      <li>Key 貼上 id_rsa.pub 的文字。</li>
+      <li>Title 可輸入這個 SSH Key 的名子，例如 Company PC Key。</li>
+      <li>Usage type 這邊使用預設驗證與登入用。</li>
+      <li>Expiration date 此組 SSH Key 的有效期限，可以設置為空變更為無期限。
+<img src="https://hackmd.io/_uploads/rJZqM0P0p.png" alt="sourcetree_ssh_setting5" /></li>
+    </ul>
+  </li>
+  <li>輸入完成後按下 Add key 即可完成新增。</li>
+</ul>
+
+<h2 id="clone-repo-到本地">Clone Repo 到本地</h2>
+<p>這邊使用 Sourcetree 進行操作。</p>
+
+<h3 id="取得ssh-url">取得SSH Url</h3>
+<h4 id="gitlab-1">Gitlab</h4>
+<ul>
+  <li>到專案中點擊 Code 複製 Clone with SSH 中的 Url。
+<img src="https://hackmd.io/_uploads/rkjt_CvCp.png" alt="sourcetree_ssh_setting6" /></li>
+</ul>
+
+<h3 id="clone">Clone</h3>
+
+<ul>
+  <li>
+    <p>打開 Sourcetree 點選 Clone 後，將 SSH Url 貼上。
+<img src="https://hackmd.io/_uploads/HyyUoCvRa.png" alt="sourcetree_ssh_setting7" /></p>
+  </li>
+  <li>貼上 SSH Url 後點選旁邊空白處會自動完成所有欄位，等待 Clone 亮起並點選即可完成Clone。
+<img src="https://hackmd.io/_uploads/HJTIjRPAT.png" alt="sourcetree_ssh_setting8" /></li>
+  <li>恭喜你完成上面幾點操作後，在此 Clone 的專案可以不用登入 Git 並進行 Git 相關操作！</li>
+</ul>
+
+<p><img src="/assets/images/post/Git-SSH-setting/8-1.thumb128.png" alt="8-1.thumb128" /></p>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="Git" /><category term="SSH" /><summary type="html"><![CDATA[生成電腦 SSH 金鑰 windows系統 打開 cmd 輸入下方指令查看有沒有ssh鑰匙檔。]]></summary></entry><entry><title type="html">Github Page Jekyll</title><link href="https://oliver-liou.github.io/markdown/2024/03/18/Github-Page-Jekyll.html" rel="alternate" type="text/html" title="Github Page Jekyll" /><published>2024-03-18T00:00:00+00:00</published><updated>2024-03-18T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/2024/03/18/Github-Page-Jekyll</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/2024/03/18/Github-Page-Jekyll.html"><![CDATA[<h2 id="安裝">安裝</h2>
+<ul>
+  <li>安裝ruby on windows 後執行以下指令
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">gem</span> <span class="nx">install</span> <span class="nx">jekyll</span> <span class="nx">bundler</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="執行">執行</h2>
+
+<ul>
+  <li>前往專案
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">cd </span><span class="p">(</span><span class="nx">github</span><span class="p">.</span><span class="nx">io</span> <span class="nx">repo</span> <span class="nx">path</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <p>bundle install</p>
+  </li>
+  <li>本地建立
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">bundle</span> <span class="nx">exec</span> <span class="nx">jekyll</span> <span class="nx">serve</span>
+</code></pre></div>    </div>
+  </li>
+  <li>prod環境建立
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">bundle</span> <span class="nx">exec</span> <span class="nx">jekyll</span> <span class="nx">build</span>
+</code></pre></div>    </div>
+  </li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="Jekyll" /><category term="Github" /><summary type="html"><![CDATA[安裝 安裝ruby on windows 後執行以下指令 gem install jekyll bundler]]></summary></entry><entry><title type="html">LDAP Injection</title><link href="https://oliver-liou.github.io/markdown/2024/02/27/LDAP-Injection.html" rel="alternate" type="text/html" title="LDAP Injection" /><published>2024-02-27T00:00:00+00:00</published><updated>2024-02-28T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/2024/02/27/%20LDAP-Injection</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/2024/02/27/LDAP-Injection.html"><![CDATA[<h2 id="弱點風險">弱點風險</h2>
+<ul>
+  <li>Checkmarx 弱點掃描掃出，使用 DirectorySearcher 建立 LDAP 查詢句，其中 search.Filter 使用沒有被處理過不受信任的字串，可能會有被注入攻擊的機會。
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">DirectorySearcher</span> <span class="n">search</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">DirectorySearcher</span><span class="p">(</span><span class="n">directoryEntry</span><span class="p">);</span>
+
+  <span class="c1">// 搜尋 AD 帳號名稱為 USER_ID 的項目</span>
+  <span class="n">search</span><span class="p">.</span><span class="n">Filter</span> <span class="p">=</span> <span class="s">"(SAMAccountName="</span> <span class="p">+</span> <span class="n">Obj</span><span class="p">.</span><span class="n">USER_ID</span> <span class="p">+</span> <span class="s">")"</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>這邊在 <a href="https://learn.microsoft.com/zh-tw/archive/blogs/securitytools/antixss-4-0-released">AntiXSS 4.0 Released</a> 程式庫中有提供 LDAP Encoding changes 的方法，可以透過 Encode 的方式將字串轉義，來避免 LDAP Injection。<br />
+<br /></li>
+  <li>開啟 NuGet 套件管理員，搜尋並安裝 AntiXSS 。<br />
+<img src="https://hackmd.io/_uploads/rkFE0gs2T.png" alt="AntiXSS" /><br />
+<br /></li>
+  <li>其中針對 LDAP 有提供了三個方法
+    <ul>
+      <li>Encoder.LdapFilterEncode(string)：
+        <ul>
+          <li>用於編碼 LDAP 查詢過濾器中的值，如 (、)、*、\、/、NUL 等特殊字符。</li>
+          <li>會對這些特殊字符進行轉義，轉義為 LDAP 查詢語法中的安全表示形式。<br />
+<br /></li>
+        </ul>
+      </li>
+      <li>Encoder.LdapDistinguishedNameEncode(string)：
+        <ul>
+          <li>Distinguished Name（DN）在創建或修改LDAP條目時使用的屬性值。</li>
+          <li>用於編碼LDAP分類名稱（DN）中的值，如 ,、=、+、&lt;、&gt;、#、;、\。</li>
+          <li>會對這些特殊字符進行轉義，轉義成為LDAP DN中的安全表示形式。<br />
+<br /></li>
+        </ul>
+      </li>
+      <li>Encoder.LdapDistinguishedNameEncode(string, bool, bool)：
+        <ul>
+          <li>這個重載方法允許你指定額外的參數來控制編碼的行為。</li>
+          <li>第一個參數是要編碼的字符串。</li>
+          <li>第二個參數，用於指示是否編碼域（即 @ 後面的部分）中的特殊字符。
+            <ul>
+              <li>設置為 true，則會對域中的特殊字符進行轉義，默認為 false。</li>
+            </ul>
+          </li>
+          <li>第三個參數，用於指示是否編碼空格。
+            <ul>
+              <li>設置為 true，則會對空格進行轉義，默認為 true。<br />
+<br /></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>通過使用 Encoder.LdapFilterEncode 方法對變數進行編碼，可以有效地解決潛在的弱點風險。
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">using</span> <span class="nn">Microsoft.Security.Application</span><span class="p">;</span>
+
+  <span class="n">DirectorySearcher</span> <span class="n">search</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">DirectorySearcher</span><span class="p">(</span><span class="n">directoryEntry</span><span class="p">);</span>
+
+  <span class="c1">// 對字串編碼</span>
+  <span class="kt">string</span> <span class="n">filteredUserId</span> <span class="p">=</span> <span class="n">Encoder</span><span class="p">.</span><span class="nf">LdapFilterEncode</span><span class="p">(</span><span class="n">Obj</span><span class="p">.</span><span class="n">USER_ID</span><span class="p">);</span>
+
+  <span class="c1">// 搜尋 AD 帳號名稱為 USER_ID 的項目</span>
+  <span class="n">search</span><span class="p">.</span><span class="n">Filter</span> <span class="p">=</span> <span class="s">"(SAMAccountName="</span> <span class="p">+</span> <span class="n">filteredUserId</span> <span class="p">+</span> <span class="s">")"</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/LDAP_Injection_Prevention_Cheat_Sheet.html">LDAP Injection Prevention</a></li>
+  <li><a href="https://learn.microsoft.com/zh-tw/archive/blogs/securitytools/antixss-4-0-released">AntiXSS 4.0 Released</a></li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="Security" /><category term="Checkmarx" /><category term="C Sharp" /><summary type="html"><![CDATA[弱點風險 Checkmarx 弱點掃描掃出，使用 DirectorySearcher 建立 LDAP 查詢句，其中 search.Filter 使用沒有被處理過不受信任的字串，可能會有被注入攻擊的機會。 ```csharp DirectorySearcher search = new DirectorySearcher(directoryEntry);]]></summary></entry><entry><title type="html">SQL Percentage Sign Escaping</title><link href="https://oliver-liou.github.io/markdown/2024/02/23/Percentage-Escaping.html" rel="alternate" type="text/html" title="SQL Percentage Sign Escaping" /><published>2024-02-23T00:00:00+00:00</published><updated>2024-02-23T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/2024/02/23/%20Percentage-Escaping</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/2024/02/23/Percentage-Escaping.html"><![CDATA[<h2 id="sql-語法將--字元視為萬用字元">SQL 語法將 ％ 字元視為萬用字元</h2>
+
+<ul>
+  <li>
+    <p>系統在做模糊查詢時，如果要查詢的字串包含有 ％ 字元，會被 SQL 認為是萬用字元</p>
+  </li>
+  <li>所以針對使用者輸入的變數，檢查是否有 % 字元，將其使用跳脫符號避免結果與預期不同
+    <ul>
+      <li><strong>Ms sql</strong>
+        <ul>
+          <li>
+            <p>使用 [] 跳脫</p>
+          </li>
+          <li>
+            <p>將 % 替換成 [%]</p>
+          </li>
+        </ul>
+      </li>
+      <li><strong>Oracle</strong>
+        <ul>
+          <li>
+            <p>需要在 LIKE 參數後面使用 ESCAPE 關鍵字，定義符號 \ 為跳脫符號</p>
+          </li>
+          <li>
+            <p>將 % 替換成 \%</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>修改 C# 中組合 SQL 語句處，找尋 param 中有含 % 字元的，針對不同 DBType 做SQL語法處理</p>
+
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//...</span>
+
+  <span class="c1">// 如果值包含 '%' 字元，則對 SQL 語法處理</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">param</span><span class="p">.</span><span class="nf">ContainsKey</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">&amp;&amp;</span> <span class="n">param</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="nf">Contains</span><span class="p">(</span><span class="s">"%"</span><span class="p">))</span>
+  <span class="p">{</span>
+      <span class="kt">var</span> <span class="n">escapedVal</span> <span class="p">=</span> <span class="s">""</span><span class="p">;</span>
+
+      <span class="k">switch</span> <span class="p">(</span><span class="n">DBType</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="k">case</span> <span class="n">MsSqlServer</span><span class="p">:</span>
+              <span class="c1">// 在 SQL Server 中將 % 替換為 [%] 跳脫</span>
+              <span class="n">escapedValue</span> <span class="p">=</span> <span class="n">param</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="nf">Replace</span><span class="p">(</span><span class="s">"%"</span><span class="p">,</span> <span class="s">"[%]"</span><span class="p">);</span>
+
+              <span class="c1">// 替換 SQL 語法中的參數值</span>
+              <span class="n">Sql</span> <span class="p">=</span> <span class="n">Sql</span><span class="p">.</span><span class="nf">Replace</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">Groups</span><span class="p">[</span><span class="s">"param"</span><span class="p">].</span><span class="n">Value</span><span class="p">,</span> <span class="s">"'"</span> <span class="p">+</span> <span class="n">escapedVal</span> <span class="p">+</span> <span class="s">"'"</span><span class="p">);</span>
+              <span class="k">break</span><span class="p">;</span>
+
+          <span class="k">case</span> <span class="n">Oracle</span><span class="p">:</span>
+              <span class="c1">// 在 Oracle 中將 % 替換為 \% 跳脫</span>
+              <span class="n">escapedValue</span> <span class="p">=</span> <span class="n">param</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="nf">Replace</span><span class="p">(</span><span class="s">"%"</span><span class="p">,</span> <span class="s">@"\%"</span><span class="p">);</span>
+
+              <span class="c1">// 如果是 LIKE '%'||'param' 子句</span>
+              <span class="c1">// 替換 SQL 語法中的值，以及加入 ESCAPE '\'</span>
+              <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="nf">IsNullOrEmpty</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">Groups</span><span class="p">[</span><span class="s">"escape"</span><span class="p">].</span><span class="n">Value</span><span class="p">))</span>
+              <span class="p">{</span>
+                  <span class="n">Sql</span> <span class="p">=</span> <span class="n">Sql</span><span class="p">.</span><span class="nf">Replace</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">Groups</span><span class="p">[</span><span class="s">"param"</span><span class="p">].</span><span class="n">Value</span><span class="p">,</span> <span class="s">"'"</span> <span class="p">+</span> <span class="n">escapedVal</span> <span class="p">+</span> <span class="s">"' ESCAPE '\\'"</span><span class="p">);</span>
+              <span class="p">}</span>
+              <span class="k">else</span>
+              <span class="p">{</span>
+                  <span class="c1">// 如果是 LIKE '%'||'param%'||'%' 子句</span>
+                  <span class="c1">// 則替換 SQL 語法中的值，和替換後面的 '%' 子句，加入 ESCAPE '\'</span>
+                  <span class="n">Sql</span> <span class="p">=</span> <span class="n">Sql</span><span class="p">.</span><span class="nf">Replace</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">Groups</span><span class="p">[</span><span class="s">"param"</span><span class="p">].</span><span class="n">Value</span><span class="p">,</span> <span class="s">"'"</span> <span class="p">+</span> <span class="n">escapedVal</span> <span class="p">+</span> <span class="s">"'"</span><span class="p">);</span>
+                  <span class="n">Sql</span> <span class="p">=</span> <span class="n">Sql</span><span class="p">.</span><span class="nf">Replace</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">Groups</span><span class="p">[</span><span class="s">"escape"</span><span class="p">].</span><span class="n">Value</span><span class="p">,</span> <span class="s">"||'%' ESCAPE '\\'"</span><span class="p">);</span>
+              <span class="p">}</span>
+              <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="SQL" /><category term="C Sharp" /><summary type="html"><![CDATA[SQL 語法將 ％ 字元視為萬用字元]]></summary></entry><entry><title type="html">EUDC Characters in Aspose.Words</title><link href="https://oliver-liou.github.io/markdown/2024/02/16/Aspose-Words.html" rel="alternate" type="text/html" title="EUDC Characters in Aspose.Words" /><published>2024-02-16T00:00:00+00:00</published><updated>2024-02-22T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/2024/02/16/Aspose-Words</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/2024/02/16/Aspose-Words.html"><![CDATA[<h2 id="asposewords-自造字無法顯示問題">Aspose.Words 自造字無法顯示問題</h2>
+
+<ul>
+  <li>
+    <p>套印 word 文件時，EUDC 自造字無法正確顯示</p>
+
+    <p><img src="https://hackmd.io/_uploads/SJn6ENEn6.png" alt="難字不正常" /></p>
+  </li>
+  <li>根據不同類型檔案設定
+    <ul>
+      <li><strong>.TTE</strong> 設定字型檔案與系統字型連結
+        <ul>
+          <li>
+            <p>當拿到字造字型檔放到電腦後，要設定機碼讓它連結到系統字型<br />
+  <img src="https://hackmd.io/_uploads/Bynz4Fr3p.png" alt="字型檔" /></p>
+          </li>
+          <li>
+            <p>使用 Administrator 在開始中輸入「regedit」開啟登陸編輯程式<br />
+  <img src="https://hackmd.io/_uploads/ryFKMFr3T.png" alt="Regedit" /></p>
+          </li>
+          <li>
+            <p>機碼目錄為 電腦\HKEY_CURRENT_USER\EUDC\950<br />
+  <img src="https://hackmd.io/_uploads/SJsbXKBha.png" alt="機碼" /></p>
+          </li>
+          <li>
+            <p>機碼 SystemDefaultEUDCFont，修改數值資料為 EUDC 字型檔所在目錄<br />
+  <img src="https://hackmd.io/_uploads/HkKKmKB3p.png" alt="數值資料" /></p>
+          </li>
+        </ul>
+      </li>
+      <li><strong>.TTF</strong> 安裝字型檔至系統
+        <ul>
+          <li>
+            <p>使用 Administrator 開啟字型檔，點選安裝<br />
+  <img src="https://hackmd.io/_uploads/Bynz4Fr3p.png" alt="字型檔" /></p>
+
+            <p><img src="https://hackmd.io/_uploads/B1yNGKHhp.png" alt="TTF檔案安裝" /></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>將系統重新啟動</p>
+  </li>
+  <li>開啟 Word 檔，另存成 PDF 檔案來驗證 一般字及自造字 是否完整呈現</li>
+</ul>
+
+<h2 id="asposewords-轉-pdf-檔只有顯示自造字">Aspose.Words 轉 PDF 檔，只有顯示自造字</h2>
+
+<ul>
+  <li>
+    <p>使用 Aspose.Words 將 word 文件轉 PDF 檔時，只有 EUDC 自造字正確顯示，其他字型變成黑點</p>
+
+    <p><img src="https://hackmd.io/_uploads/SJBMHNN26.png" alt="系統字型錯誤" /></p>
+  </li>
+  <li>在 C# 程式 SetFontsSources 載入字型方法中
+    <ul>
+      <li>除了載入自造字型(FileFontSource)</li>
+      <li>也需載入系統自型(SystemFontSource)</li>
+    </ul>
+
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">Aspose</span><span class="p">.</span><span class="n">Words</span><span class="p">.</span><span class="n">Document</span> <span class="n">doc</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Aspose</span><span class="p">.</span><span class="n">Words</span><span class="p">.</span><span class="nf">Document</span><span class="p">(</span><span class="s">@"C:\EUDC\Test.doc"</span><span class="p">);</span>
+
+  <span class="n">FontSettings</span><span class="p">.</span><span class="n">DefaultInstance</span><span class="p">.</span><span class="nf">SetFontsSources</span><span class="p">(</span>
+      <span class="k">new</span> <span class="n">FontSourceBase</span><span class="p">[]</span>
+      <span class="p">{</span> 
+          <span class="k">new</span> <span class="nf">SystemFontSource</span><span class="p">(),</span> 
+          <span class="k">new</span> <span class="nf">FileFontSource</span><span class="p">(</span><span class="s">@"C:\EUDC\JH.TTE"</span><span class="p">)</span> 
+      <span class="p">});</span>
+        
+  <span class="n">doc</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="s">@"C:\EUDC\Test.pdf"</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>補上之後查看 Test.pdf 一般字及自造字皆有正確呈現</p>
+
+    <p><img src="https://hackmd.io/_uploads/r1drBVNhp.png" alt="字型正常顯示" /></p>
+  </li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="Windows" /><category term="Form" /><category term="C Sharp" /><summary type="html"><![CDATA[Aspose.Words 自造字無法顯示問題]]></summary></entry><entry><title type="html">RabbitMQ with External Auth</title><link href="https://oliver-liou.github.io/markdown/2023/12/20/RabbitMQ-External.html" rel="alternate" type="text/html" title="RabbitMQ with External Auth" /><published>2023-12-20T00:00:00+00:00</published><updated>2024-02-21T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/2023/12/20/RabbitMQ-External</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/2023/12/20/RabbitMQ-External.html"><![CDATA[<ul>
+  <li>使用純文字帳號密碼驗證機制，現在會被軟體掃出中風險如下
+    <ul>
+      <li>The remote Advanced Message Queuing Protocol (AMQP) service supports
+one or more authentication mechanisms that allow credentials to be
+sent in the clear.</li>
+    </ul>
+  </li>
+  <li>建議修改方式
+    <ul>
+      <li>Disable cleartext authentication mechanisms in the AMQP configuration.</li>
+      <li>將連線與認證方始改用 External 機制，強制使用 SSL 認證連線</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="rabbitmq-server">RabbitMQ Server</h2>
+<h3 id="啟用-external-機制">啟用 External 機制</h3>
+
+<ul>
+  <li>開啟cmd<br />
+  cd至rabbit_server底下的sbin資料夾
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  cd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.9.4\sbin (參考依照實際安裝路徑)
+</code></pre></div>    </div>
+  </li>
+  <li>檢查是否有rabbitmq-auth-mechanism-ssl plugin ?
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  rabbitmq-plugins list
+</code></pre></div>    </div>
+  </li>
+  <li>啟用rabbitmq-auth-mechanism-ssl
+    <ul>
+      <li>使用 <strong>Administrator</strong> 帳號登入
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  rabbitmq-plugins enable rabbitmq_auth_mechanism_ssl
+</code></pre></div>        </div>
+      </li>
+      <li>一般帳號登入至以下路徑找到 <strong>enabled_plugins</strong> 檔案
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  C:\Users\Administrator\AppData\Roaming\RabbitMQ\enabled_plugins(參考)
+</code></pre></div>        </div>
+        <p>直接修改檔案內容將要開啟的 plugin 加入<br />
+  <img src="https://hackmd.io/_uploads/ryJJZzCO6.png" alt="enabled_plugins " /></p>
+      </li>
+      <li>
+        <p>以上設定完成後<strong>重啟服務</strong></p>
+      </li>
+      <li>正確啟用後可以再次檢查會有”E”標記<br />
+  <img src="https://hackmd.io/_uploads/H1VqMH9Op.png" alt="螢幕擷取畫面 2024-01-09 114942" /></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="設定-server-雙向驗證">設定 Server 雙向驗證</h3>
+
+<ul>
+  <li>伺服器端需要有以下三個檔案 (需要<span class="red"><strong>安裝到系統</strong></span>中)
+    <ul>
+      <li>Certificate Authority</li>
+      <li>Certificate</li>
+      <li>Private Key<br />
+  <img src="https://hackmd.io/_uploads/r1nzcN6_p.png" alt="Server憑證" /></li>
+    </ul>
+  </li>
+  <li>修改 <strong>advanced.config</strong> (若無此檔可自行新增)<br />
+  <img src="https://hackmd.io/_uploads/ry3wcNTuT.png" alt="AdvancedConfig" />
+    <ul>
+      <li>{ssl, [{versions, [‘tlsv1.2’, <del>‘tlsv1.1’</del>]}]}, 啟用的tls版本
+        <ul>
+          <li>(使用<span class="red"> tlsv1.2 </span>以上版本， tlsv1.1 協定已棄用，會被掃出中風險)</li>
+        </ul>
+      </li>
+      <li>{auth_mechanisms,[<del>‘PLAIN’</del>, ‘EXTERNAL’]}, 啟用的驗證方式
+        <ul>
+          <li>(身份驗證使用<span class="red"> EXTERNAL</span>，PLAIN 明文身份驗證，會被掃出中風險)</li>
+        </ul>
+      </li>
+      <li>
+        <p>{ssl_listeners, [5671]}, 指定 ssl port</p>
+      </li>
+      <li>{ssl_options, []} 設定ssl連線憑證
+        <ul>
+          <li>cacertfile 設定Certificate Authority檔案路徑</li>
+          <li>certfile 設定Certificate 檔案路徑</li>
+          <li>keyfile 設定Private Key 檔案路徑</li>
+          <li>{verify, verify_peer} 雙向驗證</li>
+          <li>{verify, verify_none} 不驗證Client端憑證</li>
+          <li>{fail_if_no_peer_cert, true} Client端沒有提供憑證不可連線</li>
+          <li>{fail_if_no_peer_cert, false} Client端沒有提供憑證可連線</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Config 正確設定後可以檢查會有”EXTERNAL”標記<br />
+  <img src="https://hackmd.io/_uploads/ryK48U5_a.png" alt="螢幕擷取畫面 2024-01-09 131408" /></li>
+</ul>
+
+<h2 id="rabbitmq-client">RabbitMQ Client</h2>
+<h3 id="設定-client-雙向驗證">設定 Client 雙向驗證</h3>
+
+<ul>
+  <li>Client端也需要有以下三個檔案 (需要<span class="red"><strong>安裝到系統</strong></span>中)
+    <ul>
+      <li>Certificate Authority</li>
+      <li>Certificate</li>
+      <li>Private Key<br />
+  <img src="https://hackmd.io/_uploads/r1nzcN6_p.png" alt="Server憑證" /></li>
+    </ul>
+  </li>
+  <li>
+    <p>在 C# 中使用 RabbitMQ.Client 設定Ssl連線時，Ssl.CertPath 所讀取的檔案格式為 <strong>PKCS#12</strong> format   (<a href="https://www.rabbitmq.com/ssl.html">參考</a>)</p>
+  </li>
+  <li>所以需要將上述 <strong>Certificate</strong> &amp; <strong>Private Key</strong> <span class="red">合併</span>為 pfx 檔案。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  //合併 certificate.crt &amp; private.key 為 pfx 格式 (pass:設定密碼也可留空)
+  openssl pkcs12 -export -in certificate.crt -inkey private.key -out client.pfx -passout pass:
+</code></pre></div>    </div>
+  </li>
+  <li>或是使用伺服器中 Certificate Authority (CA.crt &amp; CA.Key)產生 Client 端專用憑證。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  //生成 client-key
+  openssl genrsa -out client-key.pem
+    
+  //使用 client-key 設定主體名稱生成 signingrequest
+  openssl req -new -key client-key.pem -out signingrequest.csr -subj "/CN=MockClient"
+    
+  //使用 signingrequest &amp; CA.crt &amp; CA.Key 生成 client-cert
+  openssl x509 -req -days 1024 -in signingrequest.csr -CA RootCA.pem -CAkey RootCA.key -CAcreateserial -out client-cert.pem
+    
+  //將 client-cert.pem 格式轉換為 client-cert.crt
+  openssl x509 -in client-cert.pem -out client-cert.crt
+    
+  //合併 client-cert.crt &amp; client-key.pem 為 pfx 格式 (pass:設定密碼也可留空)
+  openssl pkcs12 -export -in client-cert.crt -inkey client-key.pem -out client.pfx -passout pass:
+</code></pre></div>    </div>
+    <p><img src="https://hackmd.io/_uploads/SyvHNST_a.png" alt="Client憑證" /></p>
+  </li>
+  <li>C# appsettings.json 調整新增參數
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//CERT_PATH &amp; CERT_PASSPHRASE 有多個，可以在同一個""內使用;區隔
+//支援執行多個host連線驗證
+"RABBITMQ_ENDPOINTS": {
+  "EnableSSL": true,               //是否要啟用Ssl認證(bool)
+  "CERT_PATH": "path/client.pfx",  //設定上述生成的 pfx 檔案路徑
+  "CERT_PASSPHRASE": "",           //生成 pfx 檔案時設定的密碼
+}
+</code></pre></div>    </div>
+  </li>
+  <li>C# Client 端連線程式調整
+    <ul>
+      <li>使用 appsettings 中設定 bool 值，切換連線方式保留設定彈性。</li>
+      <li>增加 SslOption 設定。</li>
+    </ul>
+
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">lock</span> <span class="p">(</span><span class="n">_lock</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="c1">//...</span>
+        
+      <span class="k">if</span> <span class="p">(</span><span class="n">_env</span><span class="p">.</span><span class="n">EnableSSL</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="kt">var</span> <span class="n">certPathList</span> <span class="p">=</span> <span class="n">_env</span><span class="p">.</span><span class="n">CertPath</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="sc">';'</span><span class="p">);</span>
+          <span class="kt">var</span> <span class="n">certPassphraseList</span> <span class="p">=</span> <span class="n">_env</span><span class="p">.</span><span class="n">CertPassphrase</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="sc">';'</span><span class="p">);</span>
+            
+          <span class="n">factory</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span>
+          <span class="p">{</span>
+              <span class="n">DispatchConsumersAsync</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+              <span class="n">AutomaticRecoveryEnabled</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+              <span class="n">AuthMechanisms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AuthMechanismFactory</span><span class="p">[]</span> <span class="p">{</span> <span class="k">new</span> <span class="nf">ExternalMechanismFactory</span><span class="p">()</span> <span class="p">},</span>
+          <span class="p">};</span>
+            
+          <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">item</span> <span class="k">in</span> <span class="n">hostList</span><span class="p">)</span>
+          <span class="p">{</span>
+              <span class="kt">var</span> <span class="n">endPoint</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AmqpTcpEndpoint</span>
+              <span class="p">{</span>
+                  <span class="n">HostName</span> <span class="p">=</span> <span class="n">item</span><span class="p">,</span>
+                  <span class="n">Port</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="nf">ToInt32</span><span class="p">(</span><span class="n">portList</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
+                  <span class="n">Ssl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SslOption</span>
+                  <span class="p">{</span> 
+                      <span class="n">Enabled</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+                      <span class="n">ServerName</span> <span class="p">=</span> <span class="n">item</span><span class="p">,</span>
+                      <span class="n">CertPath</span> <span class="p">=</span> <span class="n">certPathList</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+                      <span class="n">CertPassphrase</span> <span class="p">=</span> <span class="n">certPassphraseList</span><span class="p">[</span><span class="n">index</span><span class="p">++],</span>
+                      <span class="n">Version</span> <span class="p">=</span> <span class="n">SslProtocols</span><span class="p">.</span><span class="n">Tls12</span>
+                  <span class="p">}</span>
+              <span class="p">};</span>
+
+              <span class="n">addressList</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="n">endPoint</span><span class="p">);</span>
+          <span class="p">}</span>
+            
+          <span class="c1">//...</span>
+            
+      <span class="p">}</span>
+      <span class="k">else</span>
+      <span class="p">{</span>
+          <span class="c1">//...</span>
+      <span class="p">}</span> 
+  <span class="p">}</span> <span class="c1">// lock</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="rabbitmq-management">RabbitMQ Management</h2>
+
+<ul>
+  <li>當Server &amp; Client 都設定好之後。</li>
+  <li>需要再RabbitMQ Admin中添加生成憑證時設定的主機名，供登入時驗證用。<br />
+<img src="https://hackmd.io/_uploads/rJviZXAua.png" alt="Admin" /></li>
+</ul>
+
+<h2 id="驗證">驗證</h2>
+
+<ul>
+  <li>
+    <p>當以上都正確設定完成後，在 RabbitMQ Management 中可以確認，連線已啟用TLS/SSL協議<br />
+<img src="https://hackmd.io/_uploads/rkY6xQ0ua.png" alt="Connections" /></p>
+  </li>
+  <li>
+    <p>並且 Authentication 確認是使用 EXTERNAL 機制<br />
+<img src="https://hackmd.io/_uploads/B1zNW7COa.png" alt="EXTERNAL" /><br />
+<img src="https://hackmd.io/_uploads/HkpXM7Aup.png" alt="Ssl" /></p>
+  </li>
+  <li>
+    <p>使用 Swagger 測試</p>
+    <ul>
+      <li>
+        <p>在網頁測試模擬 Publish 發送訊息<br />
+  <img src="https://hackmd.io/_uploads/Hk4zYXNna.png" alt="Swagger測試" /></p>
+      </li>
+      <li>
+        <p>後端 Subscribe 接收<br />
+  <img src="https://hackmd.io/_uploads/HkK_DQVn6.png" alt="模擬接收" /></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://oliver-liou.github.io/Self-signed-certificate">Self-signed certificate</a></li>
+  <li><a href="https://www.rabbitmq.com/ssl.html">RabbitMQ - TLS Support</a></li>
+  <li><a href="https://groups.google.com/g/rabbitmq-users/c/Sxm0tNWCJuM?pli=1">RabbitMQ - google groups</a></li>
+</ul>
+
+<style>
+    .red {
+      color: red;
+    }
+    .Orange {
+      color: Darkorange ;   
+    }
+    .Brown {
+      color: SandyBrown;   
+    }
+    .yellow {
+      color: Gold;   
+    }
+</style>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="Security" /><category term="Message" /><category term="TLS/SSL" /><category term="C Sharp" /><summary type="html"><![CDATA[使用純文字帳號密碼驗證機制，現在會被軟體掃出中風險如下 The remote Advanced Message Queuing Protocol (AMQP) service supports one or more authentication mechanisms that allow credentials to be sent in the clear.]]></summary></entry><entry><title type="html">Telegram Bot</title><link href="https://oliver-liou.github.io/markdown/2023/10/19/TelegramBot.html" rel="alternate" type="text/html" title="Telegram Bot" /><published>2023-10-19T00:00:00+00:00</published><updated>2024-02-17T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/2023/10/19/TelegramBot</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/2023/10/19/TelegramBot.html"><![CDATA[<h2 id="使用-botfather-建立-telegram-bot">使用 BotFather 建立 Telegram Bot</h2>
+<ul>
+  <li>
+    <p>打開 Telegram，在搜尋框輸入 @BotFather，點擊第一項的搜尋結果。<br />
+  <img src="https://hackmd.io/_uploads/Bk5linasp.png" alt="BotFather" /></p>
+  </li>
+  <li>
+    <p>輸入 /start 會出現支援的指令說明。<br />
+  <img src="https://hackmd.io/_uploads/rJ1_nhToa.png" alt="start" /></p>
+  </li>
+  <li>
+    <p>輸入 /newbot 建立機器人。<br />
+  <img src="https://hackmd.io/_uploads/SJ_Manpsa.png" alt="newbot" /></p>
+  </li>
+  <li>
+    <p>輸入機器人的名稱</p>
+
+    <ul>
+      <li>
+        <p>必須以bot結尾。<br />
+  <img src="https://hackmd.io/_uploads/ByN41TTsp.png" alt="命名規則1" /></p>
+      </li>
+      <li>
+        <p>若有人重複使用會請你重新設置。<br />
+  <img src="https://hackmd.io/_uploads/B13E1pTj6.png" alt="命名規則2" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>創建成功會取得 <strong>機器人名稱</strong> &amp; <strong>token</strong>。<br />
+  <img src="https://hackmd.io/_uploads/rJkie6Ti6.png" alt="Done" /></p>
+  </li>
+  <li>
+    <p>在 Telegram 搜尋機器人就可以找到你所創建的機器人。</p>
+  </li>
+</ul>
+
+<h2 id="獲取群組id的方法">獲取群組ID的方法</h2>
+<ul>
+  <li>
+    <p>首先需要將創建好的機器人加入聊天群組。</p>
+  </li>
+  <li>在瀏覽器中輸入 https://api.telegram.org/bot[your_token]/getUpdates
+    <ul>
+      <li>[your_token] 改為在創建時獲得的token</li>
+    </ul>
+  </li>
+  <li>會回傳一段 JSON。
+    <ul>
+      <li>“chat” object 中 group_ID 即是群組的 ChatID
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "update_id":8393,
+  "message":
+  {
+      "message_id":3,
+      "from":{"id":7474,"first_name":"AAA"},
+      "chat":{"id":&lt;group_ID&gt;,"title":""},
+      "date":25497,
+      "new_chat_participant":{"id":71,"first_name":"Name","username":"YourBotName"}
+  }
+}
+</code></pre></div>        </div>
+      </li>
+      <li>If you created the new group with the bot and you only get {“ok”:true,“result”:[]}。
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "ok": true,
+  "result": []
+}
+</code></pre></div>        </div>
+      </li>
+      <li>remove and add the bot again to the group。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="nodejs-coding">Node.js Coding</h2>
+<ul>
+  <li>
+    <p>建立一個資料夾名為【nodejsbot】，然後在命令行介面使用 cd 指令進入該資料夾</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">$</span> <span class="nx">cd</span> <span class="nx">nodejsbot</span>
+</code></pre></div>    </div>
+  </li>
+  <li>npm 指令作初始化，這會自動建立一個 package.json 方便管理 npm 的 library 。過程中不停按 Enter 即可。
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">npm</span> <span class="nx">init</span>
+</code></pre></div>    </div>
+  </li>
+  <li>安裝Telegram Bot API 程式庫
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">node</span><span class="o">-</span><span class="nx">telegram</span><span class="o">-</span><span class="nx">bot</span><span class="o">-</span><span class="nx">api</span> <span class="o">--</span><span class="nx">save</span>
+
+      <span class="nx">or</span>
+
+  <span class="nx">npm</span> <span class="nx">install</span> <span class="o">--</span><span class="nx">save</span><span class="o">-</span><span class="nx">dev</span> <span class="p">@</span><span class="nd">types</span><span class="sr">/node-telegram-bot-ap</span><span class="err">i
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>在程式中應用</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">var</span> <span class="nx">TelegramBot</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">node-telegram-bot-api</span><span class="dl">'</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(your_token)</span><span class="dl">'</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">groupId</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(your_groupId)</span><span class="dl">'</span> <span class="p">;</span>
+  <span class="c1">//括號裡面的內容需要改為獲得的Token與groupId</span>
+  <span class="kd">var</span> <span class="nx">bot</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TelegramBot</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="p">{</span><span class="na">polling</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
+  <span class="c1">//使用Long Polling的方式與Telegram伺服器建立連線</span>
+  <span class="c1">//收到Start訊息時會觸發這段程式</span>
+  <span class="nx">bot</span><span class="p">.</span><span class="nf">onText</span><span class="p">(</span><span class="sr">/</span><span class="se">\/</span><span class="sr">start/</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">chatId</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">chat</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="c1">//用戶的ID</span>
+      <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">你好</span><span class="dl">'</span><span class="p">;</span> <span class="c1">//括號裡面的為回應內容，可以隨意更改</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span><span class="nx">chatId</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span> <span class="c1">//發送訊息的function</span>
+  <span class="p">});</span>
+	
+  <span class="c1">//收到/cal開頭的訊息時會觸發這段程式</span>
+  <span class="nx">bot</span><span class="p">.</span><span class="nf">onText</span><span class="p">(</span><span class="sr">/</span><span class="se">\/</span><span class="sr">cal </span><span class="se">(</span><span class="sr">.+</span><span class="se">)</span><span class="sr">/</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span> <span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">fromId</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="k">from</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="c1">//用戶的ID</span>
+      <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">[^</span><span class="sr">-()</span><span class="se">\d/</span><span class="sr">*+.</span><span class="se">]</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">''</span><span class="p">);</span>
+      <span class="c1">// match[1]的意思是 /cal 後面的所有內容</span>
+      <span class="nx">resp</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">計算結果為: </span><span class="dl">'</span> <span class="o">+</span> <span class="nf">eval</span><span class="p">(</span><span class="nx">resp</span><span class="p">);</span>
+      <span class="c1">// eval是用作執行計算的function</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span><span class="nx">fromId</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span> <span class="c1">//發送訊息的function</span>
+  <span class="p">});</span>
+
+  <span class="nf">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span> <span class="nx">groupId</span><span class="p">,</span> <span class="dl">"</span><span class="s2">加薪可不可以</span><span class="dl">"</span> <span class="p">);</span> <span class="c1">//發送訊息的function</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Salary Up Up!</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="參考資料">參考資料</h2>
+<ul>
+  <li><a href="https://github.com/yagop/node-telegram-bot-api">Node.js Telegram Bot API</a></li>
+  <li><a href="https://github.com/yagop/node-telegram-bot-api/blob/master/doc/api.md">API Reference</a></li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="Message" /><category term="Node.js" /><summary type="html"><![CDATA[使用 BotFather 建立 Telegram Bot 打開 Telegram，在搜尋框輸入 @BotFather，點擊第一項的搜尋結果。]]></summary></entry><entry><title type="html">Self-signed certificate</title><link href="https://oliver-liou.github.io/markdown/2023/06/21/Self-signed-certificate.html" rel="alternate" type="text/html" title="Self-signed certificate" /><published>2023-06-21T00:00:00+00:00</published><updated>2024-02-17T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/2023/06/21/Self-signed-certificate</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/2023/06/21/Self-signed-certificate.html"><![CDATA[<h2 id="generate-root-ca">Generate Root CA</h2>
+
+<ul>
+  <li>產生 RootCA.key &amp; RootCA.pem
+    <ul>
+      <li>CN 主機名稱</li>
+      <li>days 憑證期限</li>
+    </ul>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl req -x509 -nodes -new -sha256 -days 1024 -newkey rsa:2048 -keyout RootCA.key -out RootCA.pem -subj "/C=TW/CN=MockRoot-CA"
+</code></pre></div>    </div>
+  </li>
+  <li>將 RootCA.pem 轉為 RootCA.crt 格式
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl x509 -outform pem -in RootCA.pem -out RootCA.crt
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="generate-a-server-certificate">Generate a Server Certificate</h2>
+
+<ul>
+  <li>產生 Server-Private.key &amp; Server.csr
+    <ul>
+      <li>CN 主機名稱</li>
+    </ul>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  openssl req -new -nodes -newkey rsa:2048 -keyout  Server-Private.key -out Server.csr -subj "/CN=MockServer"
+</code></pre></div>    </div>
+  </li>
+  <li>新增 “domains.ext” 檔案，裡面設定所需資料
+    <ul>
+      <li>DNS 設定主機別名，可設定多個 DNS.1、DNS.2、DNS.3…</li>
+      <li>IP 設定主機 IP 位置，可設定多個 IP.1、IP.2、IP.3…<br />
+  <img src="https://hackmd.io/_uploads/BkDkcfC_6.png" alt="domains.ext" /></li>
+    </ul>
+  </li>
+  <li>使用 Server.csr &amp; RootCA.pem &amp; RootCA.key &amp; domains.ext 生成 Server-Certificate.crt
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl x509 -req -sha256 -days 1024 -in Server.csr -CA RootCA.pem -CAkey RootCA.key -CAcreateserial -extfile domains.ext -out Server-Certificate.crt
+</code></pre></div>    </div>
+  </li>
+  <li>所有產生出的檔案<br />
+<img src="https://hackmd.io/_uploads/H1l9DGAOp.png" alt="Server憑證生成" /></li>
+</ul>
+
+<h2 id="generate-a-client-certificate">Generate a Client Certificate</h2>
+
+<ul>
+  <li>生成 client-key
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl genrsa -out client-key.pem
+</code></pre></div>    </div>
+  </li>
+  <li>使用 client-key 設定主體名稱生成 signingrequest
+    <ul>
+      <li>CN 主機名稱
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl req -new -key client-key.pem -out signingrequest.csr -subj "CN=MockClient"
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>使用 signingrequest &amp; RootCA.crt &amp; RootCA.Key 生成 client-cert
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl x509 -req -days 1024 -in signingrequest.csr -CA RootCA.pem -CAkey RootCA.key -CAcreateserial -out client-cert.pem
+</code></pre></div>    </div>
+  </li>
+  <li>將 client-cert.pem 格式轉換為 client-cert.crt
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl x509 -in client-cert.pem -out client-cert.crt
+</code></pre></div>    </div>
+  </li>
+  <li>合併 client-cert.crt &amp; client-key.pem 為 pfx 格式
+    <ul>
+      <li>pass : 設定密碼(可留空)
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl pkcs12 -export -in client-cert.crt -inkey client-key.pem -out client.pfx -passout pass:
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>所有產生出的檔案<br />
+<img src="https://hackmd.io/_uploads/SyvHNST_a.png" alt="Client憑證" /></li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li>憑證認證方式
+    <ul>
+      <li>當產生憑證時，CA 會提供我們憑證（certificate.crt）。</li>
+      <li>通常還會提供一個包含根憑證和中間憑證的 CA Bundle File（ca_bundle.crt）。</li>
+      <li>而在驗證時，當接收到一個 SSL 憑證它會使用 CA bundle 來驗證該憑證的有效性，所以 Server 與 Client 兩端使用的 Certificate &amp; Private Key 不同沒關係，只要是同一個CA 發行的憑證都可以認證通過。</li>
+    </ul>
+  </li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="Security" /><category term="TLS/SSL" /><summary type="html"><![CDATA[Generate Root CA]]></summary></entry></feed>
