@@ -9,7 +9,7 @@ description: >-
 
 baseurl: ""
 url: "https://oliver-liou.github.io"
-favicon: ""
+favicon: "assets/images/favicon/personal_picture.JPEG"
 
 yat:
   date_format: "%b %d, %Y"
