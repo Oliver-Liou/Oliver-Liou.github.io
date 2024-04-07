@@ -9,7 +9,7 @@ description: >-
 
 baseurl: ""
 url: "https://oliver-liou.github.io"
-favicon: "assets/images/favicon/personal_picture.JPEG"
+favicon: ""
 
 yat:
   date_format: "%b %d, %Y"
@@ -30,6 +30,7 @@ header_pages:
   - about.md
 
 paginate: 5
+permalink: /:categories/:title/
 
 markdown: kramdown
 kramdown:
