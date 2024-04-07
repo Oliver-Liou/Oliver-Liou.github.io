@@ -154,4 +154,4 @@ last_modified_at: 2024-04-07
 ## Reference 
 - [NVM](https://github.com/nvm-sh/nvm)
 - [NVM for Windows](https://github.com/coreybutler/nvm-windows)
-- [Quasar CLI | Quasar Framework](https://quasar.dev/start/quasar-cli/#installation-project-scaffolding)
+- [Quasar CLI \| Quasar Framework](https://quasar.dev/start/quasar-cli/#installation-project-scaffolding)
