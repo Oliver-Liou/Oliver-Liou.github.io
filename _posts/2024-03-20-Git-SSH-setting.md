@@ -3,7 +3,8 @@ layout: post
 title: 生成 SSH Key 並設定連結 Git
 keywords: SSH Key設定連結Git
 date: 2024-03-20
-subtitle: How to generate the ssh key and using it to clone the git repository
+subtitle: How to generate the ssh key and using it to clone the git repository.
+description: How to generate the ssh key and using it to clone the git repository.
 author: Oliver Liu
 banner:
     image: 'assets/images/SSH-Key-link-git-Logo.png'

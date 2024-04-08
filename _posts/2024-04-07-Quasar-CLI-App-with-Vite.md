@@ -3,7 +3,8 @@ layout: post
 title: Quasar CLI App with Vite
 keywords: Quasar CLI
 date: 2024-04-07
-subtitle: How to generate the Quasar CLI App with Vite project by Node. 
+subtitle: How to generate the Quasar CLI App with Vite project by Node.
+description: How to generate the Quasar CLI App with Vite project by Node.
 author: Oliver Liu
 banner:
     image: 'assets/images/Quasar_logo.svg'
