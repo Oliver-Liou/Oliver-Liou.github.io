@@ -7,7 +7,7 @@ author: Oliver Liu
 banner:
     image: 'assets/images/Quasar_logo.svg'
     opacity: 0.9
-categories: markdown
+categories: Quasar
 tags: [Quasar, Node, NVM, NPM]
 last_modified_at: 2024-04-07
 --- 
