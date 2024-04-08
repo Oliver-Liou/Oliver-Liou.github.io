@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Github Page Jekyll
-keywords: Github Page Jekyll
+keywords: [Jekyll , Github, Github Page]
 date: 2024-03-18
 subtitle: 如何使用 Jekyll 建立 Github Page Blog
 description: 如何使用 Jekyll 建立 Github Page Blog
