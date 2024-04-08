@@ -1,12 +1,14 @@
 ---
 layout: post
 title: Github Page Jekyll
+keywords: Github Page Jekyll
 date: 2024-03-18
 subtitle: 如何使用 Jekyll 建立 Github Page Blog
 author: Oliver Liu
 banner:
     image: 'assets/images/Jekyll_logo.png'
     opacity: 0.9
+image: 'assets/images/Jekyll_logo.png'
 categories: markdown
 tags: [Jekyll , Github]
 last_modified_at: 2024-03-18

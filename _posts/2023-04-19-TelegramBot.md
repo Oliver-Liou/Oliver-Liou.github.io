@@ -1,12 +1,14 @@
 ---
 layout: post
 title: Telegram Bot
+keywords: Telegram Bot
 date: 2023-10-19
 subtitle: 如何建立 Telegram Bot 並透過 Node.js 使用
 author: Oliver Liu
 banner:
     image: 'assets/images/Telegram-Coin-Logo.jpg'
     opacity: 0.9
+image: 'assets/images/Telegram-Coin-Logo.jpg'
 categories: markdown
 tags: [Message , Node.js]
 last_modified_at: 2024-02-17
