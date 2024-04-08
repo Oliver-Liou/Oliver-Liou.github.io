@@ -1,12 +1,14 @@
 ---
 layout: post
 title: Quasar CLI App with Vite
+keywords: Quasar CLI
 date: 2024-04-07
 subtitle: How to generate the Quasar CLI App with Vite project by Node. 
 author: Oliver Liu
 banner:
     image: 'assets/images/Quasar_logo.svg'
     opacity: 0.9
+image: 'assets/images/Quasar_logo.svg'
 categories: Quasar
 tags: [Quasar, Node, NVM, NPM]
 last_modified_at: 2024-04-07
