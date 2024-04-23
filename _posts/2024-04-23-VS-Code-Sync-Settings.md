@@ -26,9 +26,10 @@ last_modified_at: 2024-04-23
 ## 同步管理
 - 按下 F1 輸入 ``Settings Sync: Show Synced Data`` 後可顯示同步設定。
 ![VSCode同步設定1-4](https://hackmd.io/_uploads/BJxXoxrZC.png)
-    #### 同步活動(遠端)(SYNC ACTIVITY (REMOTE))
+  - **同步活動(遠端)(SYNC ACTIVITY (REMOTE))**
     - 顯示所有的同步活動，可展開查看詳細資料。
-    #### 已同步的電腦(SYNCED MACHINES)
+
+  - **已同步的電腦(SYNCED MACHINES)**
     - 顯示所有的同步的電腦，可點擊筆編輯電腦名稱(Edit Name)或右鍵關閉同步設定(Turn off Settings Sync)。
 
 ## 清空雲端資料(Clear Data in Cloud...)
