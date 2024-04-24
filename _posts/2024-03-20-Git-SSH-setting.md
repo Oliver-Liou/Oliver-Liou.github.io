@@ -115,7 +115,7 @@ last_modified_at: 2024-04-24
 
 ![8-1.thumb128]({{ site.baseurl }}/assets/images/post/Git-SSH-setting/8-1.thumb128.png)
 
-## 取消SSH連結
+## 移除SSH連結
 根據環境移除SSH公鑰與私鑰。
 ### Gitlab
 - 至SSH Keys設定中，點擊欲刪除公鑰的最右側垃圾桶按鈕。
