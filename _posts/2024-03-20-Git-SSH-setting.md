@@ -115,3 +115,17 @@ last_modified_at: 2024-03-20
 
 ![8-1.thumb128]({{ site.baseurl }}/assets/images/post/Git-SSH-setting/8-1.thumb128.png)
 
+## 取消SSH連結
+根據環境移除SSH公鑰與私鑰。
+### Gitlab
+- 至SSH Keys設定中，點擊欲刪除公鑰的最右側垃圾桶按鈕。
+![sourcetree_ssh_setting4-2](https://hackmd.io/_uploads/SkYQv8L-C.png)
+- 在刪除確認視窗中點擊刪除即可刪除此公鑰。
+![sourcetree_ssh_setting4-3](https://hackmd.io/_uploads/HyRTPLLb0.png)
+
+### 本地端(電腦)
+- 刪除使用者資料夾中的.ssh資料夾所有檔案即可，記得刪除乾淨。
+![sourcetree_ssh_setting4-4](https://hackmd.io/_uploads/rySNtII-A.png)
+- 可在Terminal中樞入下方指令查看是否存在ssh金鑰資料。
+    - (windows) `dir %HOMEDRIVE%%HOMEPATH%\.ssh`
+    - (linux) `ls -al ~/.ssh`
