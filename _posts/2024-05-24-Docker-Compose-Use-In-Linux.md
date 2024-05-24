@@ -48,6 +48,7 @@ sudo docker-compose --version
 ## 範例
 建立以下設定檔為參考用範例並將網頁檔放入，如/dist/spa。
 - 建立 docker-compose.yml:
+
 ```yml
 version: '3'
 
@@ -64,6 +65,7 @@ services:
 ```
 
 - 建立 Dockerfile:
+
 ```Dockerfile
 FROM nginx
 
@@ -72,6 +74,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 ```
 
 -  建立 nginx.conf:
+
 ```nginx
 worker_processes 1;
 
@@ -105,25 +108,30 @@ http {
 
 ## 執行
 - 至專案路徑中輸入下方指令：
+
 ```sh
  sudo docker-compose up --build
 ```
 
 ## 重啟
 - 至專案路徑中輸入下方指令，即可重啟容器：
+
 ```sh
 sudo docker-compose restart
 ```
 
 ## Docker開機自動啟動
+
 ```sh
 sudo systemctl enable docker
 ```
 
 ## 管理 Docker 容器
+
 - 進入執行中的 Docker 容器：
     - -i: 進入互動模式(interaactive)，讓 Container 的標準輸入保持打開
     - -t: 配置一個虛擬終端(pseudo-tty)並綁定到 Container 上
+
 ```sh
 docker exec -it <containerName> bash
 docker exec -it <containerName> /bin/bash
@@ -139,6 +147,7 @@ Options :
 - --force, -f : 強制刪除不跳出確認提醒
 - --volumes : 刪除 Volume
 - --filter : 刪除指定 label 的 Container、Image、Network、Volume
+
 ```sh
 docker system prune <options>
 ```
