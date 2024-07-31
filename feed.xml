@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://oliver-liou.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://oliver-liou.github.io/" rel="alternate" type="text/html" /><updated>2024-07-31T06:01:16+00:00</updated><id>https://oliver-liou.github.io/feed.xml</id><title type="html">Oliver Liu’s Blog</title><subtitle>Documents my learning experiences.</subtitle><author><name>Oliver Liu</name></author><entry><title type="html">Docker Compose 安裝與操作(Linux)</title><link href="https://oliver-liou.github.io/docker/Docker-Compose-Use-In-Linux" rel="alternate" type="text/html" title="Docker Compose 安裝與操作(Linux)" /><published>2024-05-24T00:00:00+00:00</published><updated>2024-05-24T00:00:00+00:00</updated><id>https://oliver-liou.github.io/docker/Docker-Compose-Use-In-Linux</id><content type="html" xml:base="https://oliver-liou.github.io/docker/Docker-Compose-Use-In-Linux"><![CDATA[<h2 id="安裝">安裝</h2>
+
+<ul>
+  <li>首先，確保你安裝了 curl：
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> curl
+</code></pre></div>    </div>
+  </li>
+  <li>下載並安裝 Docker Compose：
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>curl <span class="nt">-L</span> <span class="s2">"https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-</span><span class="si">$(</span><span class="nb">uname</span> <span class="nt">-s</span><span class="si">)</span><span class="s2">-</span><span class="si">$(</span><span class="nb">uname</span> <span class="nt">-m</span><span class="si">)</span><span class="s2">"</span> <span class="nt">-o</span> /usr/local/bin/docker-compose
+<span class="nb">sudo chmod</span> +x /usr/local/bin/docker-compose
+</code></pre></div>    </div>
+  </li>
+  <li>為了確保 Docker Compose 命令可以被系統識別並執行，請將 /usr/local/bin 目錄加入到你的 PATH 環境變數中（如果它還沒有添加）：</li>
+  <li>編輯你的 shell 設定檔（如 .bashrc 或 .bash_profile）並新增以下行：
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>/usr/local/bin:<span class="nv">$PATH</span>
+</code></pre></div>    </div>
+  </li>
+  <li>重新載入 shell 設定檔：
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source</span> ~/.bashrc
+<span class="c"># 或者</span>
+<span class="nb">source</span> ~/.bash_profile
+</code></pre></div>    </div>
+  </li>
+  <li>驗證 Docker Compose 是否安裝成功：
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>docker-compose <span class="nt">--version</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="範例">範例</h2>
+<p>建立以下設定檔為參考用範例並將網頁檔放入，如/dist/spa。</p>
+<ul>
+  <li>建立 docker-compose.yml:</li>
+</ul>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">frontend</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span>
+      <span class="na">context</span><span class="pi">:</span> <span class="s">.</span>
+      <span class="na">dockerfile</span><span class="pi">:</span> <span class="s">Dockerfile</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8087:80"</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./dist/spa:/app</span> <span class="c1"># 選擇要讀取的位置，可更新後直接重啟</span>
+</code></pre></div></div>
+
+<ul>
+  <li>建立 Dockerfile:</li>
+</ul>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> nginx</span>
+
+<span class="k">RUN </span><span class="nb">mkdir</span> <span class="nt">-p</span> /app
+<span class="k">COPY</span><span class="s"> nginx.conf /etc/nginx/nginx.conf</span>
+</code></pre></div></div>
+
+<ul>
+  <li>建立 nginx.conf:</li>
+</ul>
+
+<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">worker_processes</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="k">events</span> <span class="p">{</span> 
+    <span class="kn">worker_connections</span> <span class="mi">1024</span><span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="k">http</span> <span class="p">{</span>
+    <span class="kn">include</span>       <span class="n">/etc/nginx/mime.types</span><span class="p">;</span>
+    <span class="kn">default_type</span>  <span class="nc">application/octet-stream</span><span class="p">;</span>
+
+    <span class="kn">sendfile</span>        <span class="no">on</span><span class="p">;</span>
+    <span class="kn">keepalive_timeout</span>  <span class="mi">65</span><span class="p">;</span>
+
+    <span class="kn">server</span> <span class="p">{</span>
+        <span class="kn">listen</span>       <span class="mi">80</span><span class="p">;</span>
+        <span class="kn">server_name</span>  <span class="s">localhost</span><span class="p">;</span>
+
+        <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+            <span class="kn">root</span>   <span class="n">/app</span><span class="p">;</span>
+            <span class="kn">index</span>  <span class="s">index.html</span> <span class="s">index.htm</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kn">error_page</span>   <span class="mi">500</span> <span class="mi">502</span> <span class="mi">503</span> <span class="mi">504</span>  <span class="n">/50x.html</span><span class="p">;</span>
+        <span class="kn">location</span> <span class="p">=</span> <span class="n">/50x.html</span> <span class="p">{</span>
+            <span class="kn">root</span>   <span class="n">/usr/share/nginx/html</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="執行">執行</h2>
+<ul>
+  <li>至專案路徑中輸入下方指令：</li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">sudo </span>docker-compose up <span class="nt">--build</span>
+</code></pre></div></div>
+
+<h2 id="重啟">重啟</h2>
+<ul>
+  <li>至專案路徑中輸入下方指令，即可重啟容器：</li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>docker-compose restart
+</code></pre></div></div>
+
+<h2 id="docker開機自動啟動">Docker開機自動啟動</h2>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl <span class="nb">enable </span>docker
+</code></pre></div></div>
+
+<h2 id="管理-docker-容器">管理 Docker 容器</h2>
+
+<ul>
+  <li>進入執行中的 Docker 容器：
+    <ul>
+      <li>-i: 進入互動模式(interaactive)，讓 Container 的標準輸入保持打開</li>
+      <li>-t: 配置一個虛擬終端(pseudo-tty)並綁定到 Container 上</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">exec</span> <span class="nt">-it</span> &lt;containerName&gt; bash
+docker <span class="nb">exec</span> <span class="nt">-it</span> &lt;containerName&gt; /bin/bash
+
+<span class="c"># 有些 Image 使用 Alpine Linux，可能沒有 bash，改用 sh</span>
+docker <span class="nb">exec</span> <span class="nt">-it</span> &lt;containerName&gt; /bin/sh
+</code></pre></div></div>
+<ul>
+  <li>退出只需輸入 <code class="language-plaintext highlighter-rouge">exit</code> 。</li>
+</ul>
+
+<h2 id="清除沒有執行的-containerimage-network-和-cache">清除沒有執行的 Container、Image 、Network 和 Cache</h2>
+<p>Options :</p>
+<ul>
+  <li>–all , -a : 刪除所有停止的 Container、Image、Network</li>
+  <li>–force, -f : 強制刪除不跳出確認提醒</li>
+  <li>–volumes : 刪除 Volume</li>
+  <li>–filter : 刪除指定 label 的 Container、Image、Network、Volume</li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker system prune &lt;options&gt;
+</code></pre></div></div>
+
+<h2 id="references">References</h2>
+<ul>
+  <li><a href="https://hackmd.io/@jimmy801/docker_compose_install">Docker-compose 安裝</a></li>
+  <li><a href="https://hackmd.io/@tienyulin/docker2">Docker基本操作</a></li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="Docker" /><category term="Docker" /><category term="Docker Compose" /><summary type="html"><![CDATA[如何在 Linux 中使用 Docker Compose 進行部屬 Docker。]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://oliver-liou.github.io/assets/images/docker-icon.png" /><media:content medium="image" url="https://oliver-liou.github.io/assets/images/docker-icon.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">VSCode 同步設定</title><link href="https://oliver-liou.github.io/vscode/VS-Code-Sync-Settings" rel="alternate" type="text/html" title="VSCode 同步設定" /><published>2024-04-23T00:00:00+00:00</published><updated>2024-04-23T00:00:00+00:00</updated><id>https://oliver-liou.github.io/vscode/VS-Code-Sync-Settings</id><content type="html" xml:base="https://oliver-liou.github.io/vscode/VS-Code-Sync-Settings"><![CDATA[<h2 id="開啟同步">開啟同步</h2>
+<ul>
+  <li>點擊右下角齒輪 &gt; 備份與同步設定…(Backup and Sync Settings…)
+<img src="https://hackmd.io/_uploads/rkOrseSWR.png" alt="VSCode同步設定1-1" /></li>
+  <li>點擊登入(Sign in)
+<img src="https://hackmd.io/_uploads/ByGIsgr-R.png" alt="VSCode同步設定1-2" /></li>
+  <li>選擇登入方式，這邊Github根據網頁登入的為主。
+<img src="https://hackmd.io/_uploads/HyMUslBb0.png" alt="VSCode同步設定1-3" /></li>
+</ul>
+
+<h2 id="同步管理">同步管理</h2>
+<ul>
+  <li>按下 F1 輸入 <code class="language-plaintext highlighter-rouge">Settings Sync: Show Synced Data</code> 後可顯示同步設定。
+<img src="https://hackmd.io/_uploads/BJxXoxrZC.png" alt="VSCode同步設定1-4" />
+    <ul>
+      <li><strong>同步活動(遠端)(SYNC ACTIVITY (REMOTE))</strong>
+        <ul>
+          <li>顯示所有的同步活動，可展開查看詳細資料。</li>
+        </ul>
+      </li>
+      <li><strong>已同步的電腦(SYNCED MACHINES)</strong>
+        <ul>
+          <li>顯示所有的同步的電腦，可點擊筆編輯電腦名稱(Edit Name)或右鍵關閉同步設定(Turn off Settings Sync)。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="清空雲端資料clear-data-in-cloud">清空雲端資料(Clear Data in Cloud…)</h2>
+<ul>
+  <li>點擊右上方設定圖示 &gt; 清除雲端中的資料…(Clear Data in Cloud…)
+<img src="https://hackmd.io/_uploads/rJuGTgrZC.png" alt="VSCode同步設定4-1" /></li>
+  <li>點擊重設(Reset)
+<img src="https://hackmd.io/_uploads/Hk3MTxHZA.png" alt="VSCode同步設定4-2" /></li>
+  <li>完成後即可清除雲端同步資料並重新進行同步。
+<img src="https://hackmd.io/_uploads/SJx7TeHbA.png" alt="VSCode同步設定4-3" /></li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="VSCode" /><category term="VSCode" /><category term="Github" /><summary type="html"><![CDATA[How to Sync Settings in VSCode by Github.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://oliver-liou.github.io/assets/images/visual-studio-code-icon.png" /><media:content medium="image" url="https://oliver-liou.github.io/assets/images/visual-studio-code-icon.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Quasar CLI App with Vite</title><link href="https://oliver-liou.github.io/quasar/Quasar-CLI-App-with-Vite" rel="alternate" type="text/html" title="Quasar CLI App with Vite" /><published>2024-04-07T00:00:00+00:00</published><updated>2024-04-07T00:00:00+00:00</updated><id>https://oliver-liou.github.io/quasar/Quasar-CLI-App-with-Vite</id><content type="html" xml:base="https://oliver-liou.github.io/quasar/Quasar-CLI-App-with-Vite"><![CDATA[<h2 id="安裝-nvm--npm">安裝 NVM 、 NPM</h2>
+<h3 id="nvm">NVM</h3>
+<p><strong>NVM</strong> 是 <strong>Node</strong> 版本安裝/切換工具， <a href="https://github.com/nvm-sh/nvm">NVM</a> 有提供各種系統的安裝方法，本文以 <strong>Window</strong> 作為開發系統 ，可至 <a href="https://github.com/coreybutler/nvm-windows">NVM for Windows</a> 進行下載安裝。</p>
+<ul>
+  <li>至 NVM for Windows 網頁後選擇 Download Now!
+<img src="https://hackmd.io/_uploads/rko68klgA.png" alt="NVM安裝1" /></li>
+  <li>在要下載的版本中選擇 nvm-setup.exe 。
+<img src="https://hackmd.io/_uploads/B1FgwylgR.png" alt="NVM安裝2" /></li>
+  <li>下載完成後點選 nvm-setup.exe 即可開始安裝。
+    <ul>
+      <li>若存在已安裝的 Node 會確認是否讓 NVM 進行版本控制，這邊選擇是。
+  <img src="https://hackmd.io/_uploads/S177dkxeR.png" alt="NVM安裝3" /></li>
+      <li>出現此畫面代表安裝完成。
+  <img src="https://hackmd.io/_uploads/ry8QdJxxA.png" alt="NVM安裝4" /></li>
+      <li>可在Terminal中下 <code class="language-plaintext highlighter-rouge">nvm -v</code> 指令確認已安裝的 NVM 版本。
+  <img src="https://hackmd.io/_uploads/Bklke91ex0.png" alt="NVM安裝5" /></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="npm">NPM</h3>
+<p><strong>NPM</strong> 是 <strong>Node Package manager</strong> 的簡稱，是管理 <strong>Node</strong> 套件的工具。</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nvm list</code> 確認已安裝的 Node版本。
+<img src="https://hackmd.io/_uploads/SkXMo1leA.png" alt="NPM安裝1" /></li>
+  <li><code class="language-plaintext highlighter-rouge">nvm install &lt;version&gt;</code> &lt;version&gt; 替換為要安裝的版本號。
+<img src="https://hackmd.io/_uploads/BJ-o3kgeA.png" alt="NPM安裝2" /></li>
+  <li>輸入 <code class="language-plaintext highlighter-rouge">nvm use 16.20.2</code> 指令即可將 Node 版本切換為 16.20.2 並輸入  <code class="language-plaintext highlighter-rouge">node -v</code> 即可確認當前的 Node 版本號。
+<img src="https://hackmd.io/_uploads/SJHCTyllC.png" alt="NPM安裝3" /></li>
+</ul>
+
+<hr />
+
+<h2 id="建置專案">建置專案</h2>
+
+<p>使用 npm 進行 quasar 建置。</p>
+<ul>
+  <li>移至要建立專案的PATH後初始化 quasar。
+    <div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">npm init quasar
+</span></code></pre></div>    </div>
+  </li>
+  <li>出現下面指示按Enter。
+    <div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Need to install the following packages:
+create-quasar@1.8.2
+Ok to proceed? (y)
+</span></code></pre></div>    </div>
+    <p><img src="https://hackmd.io/_uploads/rygnbeelC.png" alt="Quasar安裝細節1" /></p>
+  </li>
+</ul>
+
+<h3 id="建置設定細節">建置設定細節</h3>
+<p>出現建置設定讓使用者進行選擇。</p>
+<ul>
+  <li>
+    <p>相關設定示意圖。
+<img src="https://hackmd.io/_uploads/rysmcwZJC.png" alt="quasarbuild建置所有設定" /></p>
+  </li>
+  <li>What would you like to build?:
+    <ul>
+      <li>App with Quasar CLI, let’s go!
+  <img src="https://hackmd.io/_uploads/BJXDzlexR.png" alt="Quasar安裝細節2" /></li>
+    </ul>
+  </li>
+  <li>Project folder:
+    <ul>
+      <li>quasar-test
+  <img src="https://hackmd.io/_uploads/SkG_zgelR.png" alt="Quasar安裝細節3" /></li>
+    </ul>
+  </li>
+  <li>Pick Quasar version:
+    <ul>
+      <li>Quasar v2 (Vue 3 I latest and greatest)
+  <img src="https://hackmd.io/_uploads/Hk9Ofgee0.png" alt="Quasar安裝細節4" /></li>
+    </ul>
+  </li>
+  <li>Pick script type:
+    <ul>
+      <li>Javascript
+  <img src="https://hackmd.io/_uploads/H1HoGgxxA.png" alt="Quasar安裝細節5" /></li>
+    </ul>
+  </li>
+  <li>Pick Quasar App CLI variant:
+    <ul>
+      <li>Quasar App CLI with Vite 2 (stable | v1)
+  <img src="https://hackmd.io/_uploads/BJ6WXgexR.png" alt="Quasar安裝細節6" /></li>
+    </ul>
+  </li>
+  <li>Package name:
+    <ul>
+      <li>quasar-test
+  <img src="https://hackmd.io/_uploads/ByCIQxgeC.png" alt="Quasar安裝細節7" /></li>
+    </ul>
+  </li>
+  <li>Project product name:(must start with letter if building mobile apps)
+    <ul>
+      <li>Quasar Test App
+  <img src="https://hackmd.io/_uploads/ryvwVeelA.png" alt="Quasar安裝細節8" /></li>
+    </ul>
+  </li>
+  <li>Project description:
+    <ul>
+      <li>Quasar Test System
+  <img src="https://hackmd.io/_uploads/S1dpVxxeA.png" alt="Quasar安裝細節9" /></li>
+    </ul>
+  </li>
+  <li>Author:
+    <ul>
+      <li>OliverLiu <a href="mailto:yancheng199906@gmail.com">yancheng199906@gmail.com</a>
+  <img src="https://hackmd.io/_uploads/ryPbreggC.png" alt="Quasar安裝細節10" /></li>
+    </ul>
+  </li>
+  <li>Pick a Vue component style:
+    <ul>
+      <li>Composition API with &lt;script setup&gt;
+  <img src="https://hackmd.io/_uploads/r1hHBglxC.png" alt="Quasar安裝細節11" /></li>
+    </ul>
+  </li>
+  <li>Pick your CSS preprocessor:
+    <ul>
+      <li>Sass with SCSS syntax
+  <img src="https://hackmd.io/_uploads/SJGjreelC.png" alt="Quasar安裝細節12" /></li>
+    </ul>
+  </li>
+  <li>Check the features needed for your project: vue-i18n 為導入多國語言
+    <ul>
+      <li>Linting (vite-plugin-checker + ESLint), State Management (Pinia), axios
+  <img src="https://hackmd.io/_uploads/Hkgu98gll0.png" alt="Quasar安裝細節13" /></li>
+    </ul>
+  </li>
+  <li>Pick an ESLint preset:
+    <ul>
+      <li>Prettier
+  <img src="https://hackmd.io/_uploads/ryugwgxxR.png" alt="Quasar安裝細節14" /></li>
+    </ul>
+  </li>
+  <li>Install project dependencies?
+    <ul>
+      <li>(recommended) , Yes, use npm
+  <img src="https://hackmd.io/_uploads/SyGFPegeA.png" alt="Quasar安裝細節15" /></li>
+    </ul>
+  </li>
+  <li>出現以下畫面表示建置完成，若有版本更新也會顯示於 npm notice ，再依據顯示進行操作即可！
+<img src="https://hackmd.io/_uploads/HkSyYeee0.png" alt="Quasar安裝細節16" /></li>
+</ul>
+
+<h2 id="新增tailwindcss">新增tailwindcss</h2>
+
+<ul>
+  <li>打開CMD並移到專案的path中輸入下列指令安裝 tailwindcss
+    <div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">  npm install -D tailwindcss postcss autoprefixer
+</span></code></pre></div>    </div>
+    <p><img src="https://hackmd.io/_uploads/SkZLVUtJC.png" alt="quasartailwindcss安裝1" /></p>
+  </li>
+  <li>安裝完畢後輸入下方指令會生成config檔
+    <div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">  npx tailwindcss init -p
+</span></code></pre></div>    </div>
+    <p><img src="https://hackmd.io/_uploads/rJxaX8YJR.png" alt="quasartailwindcss安裝2" /></p>
+  </li>
+  <li>新增 tailwind.config.js 中 content 的路徑來應用tailwind
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">content</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">./index.html</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">./src/**/*.{js,ts,jsx,tsx,vue}</span><span class="dl">"</span><span class="p">],</span>
+</code></pre></div>    </div>
+    <p><img src="https://hackmd.io/_uploads/Bk_KrLtJR.png" alt="quasartailwindcss安裝3" /></p>
+  </li>
+  <li>新增 postcss.config.js 內容，可將 postcss.config.cjs 的 plugins 複製過來做更改並導入 tailwindcss
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
+      <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">autoprefixer</span><span class="dl">"</span><span class="p">)({</span>
+        <span class="na">overrideBrowserslist</span><span class="p">:</span> <span class="p">[</span>
+          <span class="dl">"</span><span class="s2">last 4 Chrome versions</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">last 4 Firefox versions</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">last 4 Edge versions</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">last 4 Safari versions</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">last 4 Android versions</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">last 4 ChromeAndroid versions</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">last 4 FirefoxAndroid versions</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">last 4 iOS versions</span><span class="dl">"</span><span class="p">,</span>
+        <span class="p">],</span>
+      <span class="p">}),</span>
+      <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">tailwindcss</span><span class="dl">"</span><span class="p">),</span>
+    <span class="p">],</span>
+  <span class="p">};</span>
+</code></pre></div>    </div>
+    <p><img src="https://hackmd.io/_uploads/rkSu8IKk0.png" alt="quasartailwindcss安裝4" /></p>
+  </li>
+  <li>完成後即可在專案./src/pages/*Page.vue 中使用 tailwindcss
+  <img src="https://hackmd.io/_uploads/r197u8Kk0.png" alt="quasartailwindcss安裝5" />
+  <img src="https://hackmd.io/_uploads/SkDx_UFJR.png" alt="quasartailwindcss安裝6" /></li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://github.com/nvm-sh/nvm">NVM</a></li>
+  <li><a href="https://github.com/coreybutler/nvm-windows">NVM for Windows</a></li>
+  <li><a href="https://quasar.dev/start/quasar-cli/#installation-project-scaffolding">Quasar CLI | Quasar Framework</a></li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="Quasar" /><category term="Quasar" /><category term="Node" /><category term="NVM" /><category term="NPM" /><summary type="html"><![CDATA[How to generate the Quasar CLI App with Vite project by Node.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://oliver-liou.github.io/assets/images/Quasar_logo.png" /><media:content medium="image" url="https://oliver-liou.github.io/assets/images/Quasar_logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">生成 SSH Key 並設定連結 Git</title><link href="https://oliver-liou.github.io/markdown/Git-SSH-setting" rel="alternate" type="text/html" title="生成 SSH Key 並設定連結 Git" /><published>2024-03-20T00:00:00+00:00</published><updated>2024-04-24T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/Git-SSH-setting</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/Git-SSH-setting"><![CDATA[<h2 id="生成電腦-ssh-金鑰">生成電腦 SSH 金鑰</h2>
+<h3 id="windows系統">windows系統</h3>
+<ul>
+  <li>
+    <p>打開 <strong>cmd</strong> 輸入下方指令查看有沒有ssh鑰匙檔。
+  <img src="https://hackmd.io/_uploads/ryaKly_Ra.png" alt="sourcetree_ssh_setting11" /></p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  cd %HOMEPATH%
+  dir .ssh
+</code></pre></div>    </div>
+    <p>or</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  dir %HOMEDRIVE%%HOMEPATH%\.ssh
+</code></pre></div>    </div>
+  </li>
+  <li>若金鑰不存在就打下列的指令生成ssh密鑰。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ssh-keygen -t rsa -C "your_emial@examle.com"
+</code></pre></div>    </div>
+    <p>“your_emial@examle.com” 輸入你的git帳號。</p>
+  </li>
+  <li>
+    <p>接下來只要 Enter 保持預設值即可。</p>
+  </li>
+  <li>生成完畢後會在 userpath/.ssh 中生成SSH Key。
+    <ul>
+      <li>id_rsa 為密鑰。</li>
+      <li>id_rsa.pub 為公鑰。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="linux系統sourcetree">linux系統/Sourcetree</h3>
+<ul>
+  <li>
+    <p>打開<strong>Terminal</strong> 
+<img src="https://hackmd.io/_uploads/H1ZbRCwR6.png" alt="sourcetree_ssh_setting9" /></p>
+  </li>
+  <li>鍵入下方指令查看有沒有ssh鑰匙檔。
+<img src="https://hackmd.io/_uploads/HkbqA0vRT.png" alt="sourcetree_ssh_setting10" />
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ls -al ~/.ssh
+</code></pre></div>    </div>
+  </li>
+  <li>若金鑰不存在就打下列的指令生成ssh密鑰。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ssh-keygen -t rsa -C "your_emial@examle.com"
+</code></pre></div>    </div>
+    <p>“your_emial@examle.com” 輸入你的git帳號。</p>
+  </li>
+  <li>
+    <p>接下來只要 Enter 保持預設值即可。</p>
+  </li>
+  <li>生成完畢後會在 userpath/.ssh 中生成SSH Key。
+    <ul>
+      <li>id_rsa 為密鑰。</li>
+      <li>id_rsa.pub 為公鑰。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="設定金鑰">設定金鑰</h2>
+
+<h3 id="sourcetree">Sourcetree</h3>
+<ul>
+  <li>
+    <p>Tools -&gt; <strong>Options</strong> 開啟設定。
+<img src="https://hackmd.io/_uploads/H1AgFpPR6.png" alt="sourcetree_ssh_setting1" /></p>
+  </li>
+  <li>在 General 中設定 <strong>SSH Client Configuration</strong> 內容。
+    <ul>
+      <li>SSH Key 選擇電腦所產出的ssh密鑰id_rsa。</li>
+      <li>SSH Client 選擇OpenSSH作為連接方式。
+<img src="https://hackmd.io/_uploads/H1_ZF6vRT.png" alt="sourcetree_ssh_setting2" /></li>
+    </ul>
+  </li>
+  <li>設定完畢點及右下方OK即可完成設定。</li>
+</ul>
+
+<h3 id="gitlab">Gitlab</h3>
+
+<ul>
+  <li>
+    <p>點選使用者圖示選擇 Edit profile 進入編輯個人資料的畫面。
+<img src="https://hackmd.io/_uploads/rkV5naPAa.png" alt="sourcetree_ssh_setting3" /></p>
+  </li>
+  <li>
+    <p>選擇 SSH Keys 點擊 Add new key 新增 SSH Key 公鑰。
+<img src="https://hackmd.io/_uploads/SJ-xMJ_RT.png" alt="sourcetree_ssh_setting4" /></p>
+  </li>
+  <li>輸入鑰新增 SSH Key 的資訊。
+    <ul>
+      <li>Key 貼上 id_rsa.pub 的文字。</li>
+      <li>Title 可輸入這個 SSH Key 的名子，例如 Company PC Key。</li>
+      <li>Usage type 這邊使用預設驗證與登入用。</li>
+      <li>Expiration date 此組 SSH Key 的有效期限，可以設置為空變更為無期限。
+<img src="https://hackmd.io/_uploads/rJZqM0P0p.png" alt="sourcetree_ssh_setting5" /></li>
+    </ul>
+  </li>
+  <li>輸入完成後按下 Add key 即可完成新增。</li>
+</ul>
+
+<h2 id="clone-repo-到本地">Clone Repo 到本地</h2>
+<p>這邊使用 Sourcetree 進行操作。</p>
+
+<h3 id="取得ssh-url">取得SSH Url</h3>
+<h4 id="gitlab-1">Gitlab</h4>
+<ul>
+  <li>到專案中點擊 Code 複製 Clone with SSH 中的 Url。
+<img src="https://hackmd.io/_uploads/rkjt_CvCp.png" alt="sourcetree_ssh_setting6" /></li>
+</ul>
+
+<h3 id="clone">Clone</h3>
+
+<ul>
+  <li>
+    <p>打開 Sourcetree 點選 Clone 後，將 SSH Url 貼上。
+<img src="https://hackmd.io/_uploads/HyyUoCvRa.png" alt="sourcetree_ssh_setting7" /></p>
+  </li>
+  <li>貼上 SSH Url 後點選旁邊空白處會自動完成所有欄位，等待 Clone 亮起並點選即可完成Clone。
+<img src="https://hackmd.io/_uploads/HJTIjRPAT.png" alt="sourcetree_ssh_setting8" /></li>
+  <li>恭喜你完成上面幾點操作後，在此 Clone 的專案可以不用登入 Git 並進行 Git 相關操作！</li>
+</ul>
+
+<p><img src="/assets/images/post/Git-SSH-setting/8-1.thumb128.png" alt="8-1.thumb128" /></p>
+
+<h2 id="移除ssh連結">移除SSH連結</h2>
+<p>根據環境移除SSH公鑰與私鑰。</p>
+<h3 id="gitlab-2">Gitlab</h3>
+<ul>
+  <li>至SSH Keys設定中，點擊欲刪除公鑰的最右側垃圾桶按鈕。
+<img src="https://hackmd.io/_uploads/SkYQv8L-C.png" alt="sourcetree_ssh_setting4-2" /></li>
+  <li>在刪除確認視窗中點擊刪除即可刪除此公鑰。
+<img src="https://hackmd.io/_uploads/HyRTPLLb0.png" alt="sourcetree_ssh_setting4-3" /></li>
+</ul>
+
+<h3 id="本地端電腦">本地端(電腦)</h3>
+<ul>
+  <li>刪除使用者資料夾中的.ssh資料夾所有檔案即可，記得刪除乾淨。
+<img src="https://hackmd.io/_uploads/rySNtII-A.png" alt="sourcetree_ssh_setting4-4" /></li>
+  <li>可在Terminal中樞入下方指令查看是否存在ssh金鑰資料。
+    <ul>
+      <li>(windows) <code class="language-plaintext highlighter-rouge">dir %HOMEDRIVE%%HOMEPATH%\.ssh</code></li>
+      <li>(linux) <code class="language-plaintext highlighter-rouge">ls -al ~/.ssh</code></li>
+    </ul>
+  </li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="Git" /><category term="SSH" /><summary type="html"><![CDATA[How to generate the ssh key and using it to clone the git repository.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://oliver-liou.github.io/assets/images/SSH-Key-link-git-Logo.png" /><media:content medium="image" url="https://oliver-liou.github.io/assets/images/SSH-Key-link-git-Logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Github Page Jekyll</title><link href="https://oliver-liou.github.io/markdown/Github-Page-Jekyll" rel="alternate" type="text/html" title="Github Page Jekyll" /><published>2024-03-18T00:00:00+00:00</published><updated>2024-03-18T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/Github-Page-Jekyll</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/Github-Page-Jekyll"><![CDATA[<h2 id="安裝">安裝</h2>
+<ul>
+  <li>安裝ruby on windows 後執行以下指令
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">gem</span> <span class="nx">install</span> <span class="nx">jekyll</span> <span class="nx">bundler</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="執行">執行</h2>
+
+<ul>
+  <li>前往專案
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">cd </span><span class="p">(</span><span class="nx">github</span><span class="p">.</span><span class="nx">io</span> <span class="nx">repo</span> <span class="nx">path</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <p>bundle install</p>
+  </li>
+  <li>本地建立
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">bundle</span> <span class="nx">exec</span> <span class="nx">jekyll</span> <span class="nx">serve</span>
+</code></pre></div>    </div>
+  </li>
+  <li>prod環境建立
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">bundle</span> <span class="nx">exec</span> <span class="nx">jekyll</span> <span class="nx">build</span>
+</code></pre></div>    </div>
+  </li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="Jekyll" /><category term="Github" /><summary type="html"><![CDATA[如何使用 Jekyll 建立 Github Page Blog]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://oliver-liou.github.io/assets/images/Jekyll_logo.png" /><media:content medium="image" url="https://oliver-liou.github.io/assets/images/Jekyll_logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Telegram Bot</title><link href="https://oliver-liou.github.io/markdown/TelegramBot" rel="alternate" type="text/html" title="Telegram Bot" /><published>2023-10-19T00:00:00+00:00</published><updated>2024-02-17T00:00:00+00:00</updated><id>https://oliver-liou.github.io/markdown/TelegramBot</id><content type="html" xml:base="https://oliver-liou.github.io/markdown/TelegramBot"><![CDATA[<h2 id="使用-botfather-建立-telegram-bot">使用 BotFather 建立 Telegram Bot</h2>
+<ul>
+  <li>
+    <p>打開 Telegram，在搜尋框輸入 @BotFather，點擊第一項的搜尋結果。<br />
+  <img src="https://hackmd.io/_uploads/Bk5linasp.png" alt="BotFather" /></p>
+  </li>
+  <li>
+    <p>輸入 /start 會出現支援的指令說明。<br />
+  <img src="https://hackmd.io/_uploads/rJ1_nhToa.png" alt="start" /></p>
+  </li>
+  <li>
+    <p>輸入 /newbot 建立機器人。<br />
+  <img src="https://hackmd.io/_uploads/SJ_Manpsa.png" alt="newbot" /></p>
+  </li>
+  <li>
+    <p>輸入機器人的名稱</p>
+
+    <ul>
+      <li>
+        <p>必須以bot結尾。<br />
+  <img src="https://hackmd.io/_uploads/ByN41TTsp.png" alt="命名規則1" /></p>
+      </li>
+      <li>
+        <p>若有人重複使用會請你重新設置。<br />
+  <img src="https://hackmd.io/_uploads/B13E1pTj6.png" alt="命名規則2" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>創建成功會取得 <strong>機器人名稱</strong> &amp; <strong>token</strong>。<br />
+  <img src="https://hackmd.io/_uploads/rJkie6Ti6.png" alt="Done" /></p>
+  </li>
+  <li>
+    <p>在 Telegram 搜尋機器人就可以找到你所創建的機器人。</p>
+  </li>
+</ul>
+
+<h2 id="獲取群組id的方法">獲取群組ID的方法</h2>
+<ul>
+  <li>
+    <p>首先需要將創建好的機器人加入聊天群組。</p>
+  </li>
+  <li>在瀏覽器中輸入 https://api.telegram.org/bot[your_token]/getUpdates
+    <ul>
+      <li>[your_token] 改為在創建時獲得的token</li>
+    </ul>
+  </li>
+  <li>會回傳一段 JSON。
+    <ul>
+      <li>“chat” object 中 group_ID 即是群組的 ChatID
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "update_id":8393,
+  "message":
+  {
+      "message_id":3,
+      "from":{"id":7474,"first_name":"AAA"},
+      "chat":{"id":&lt;group_ID&gt;,"title":""},
+      "date":25497,
+      "new_chat_participant":{"id":71,"first_name":"Name","username":"YourBotName"}
+  }
+}
+</code></pre></div>        </div>
+      </li>
+      <li>If you created the new group with the bot and you only get {“ok”:true,“result”:[]}。
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "ok": true,
+  "result": []
+}
+</code></pre></div>        </div>
+      </li>
+      <li>remove and add the bot again to the group。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="nodejs-coding">Node.js Coding</h2>
+<ul>
+  <li>
+    <p>建立一個資料夾名為【nodejsbot】，然後在命令行介面使用 cd 指令進入該資料夾</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">$</span> <span class="nx">cd</span> <span class="nx">nodejsbot</span>
+</code></pre></div>    </div>
+  </li>
+  <li>npm 指令作初始化，這會自動建立一個 package.json 方便管理 npm 的 library 。過程中不停按 Enter 即可。
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">npm</span> <span class="nx">init</span>
+</code></pre></div>    </div>
+  </li>
+  <li>安裝Telegram Bot API 程式庫
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">node</span><span class="o">-</span><span class="nx">telegram</span><span class="o">-</span><span class="nx">bot</span><span class="o">-</span><span class="nx">api</span> <span class="o">--</span><span class="nx">save</span>
+
+      <span class="nx">or</span>
+
+  <span class="nx">npm</span> <span class="nx">install</span> <span class="o">--</span><span class="nx">save</span><span class="o">-</span><span class="nx">dev</span> <span class="p">@</span><span class="nd">types</span><span class="sr">/node-telegram-bot-ap</span><span class="err">i
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>在程式中應用</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">var</span> <span class="nx">TelegramBot</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">node-telegram-bot-api</span><span class="dl">'</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(your_token)</span><span class="dl">'</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">groupId</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(your_groupId)</span><span class="dl">'</span> <span class="p">;</span>
+  <span class="c1">//括號裡面的內容需要改為獲得的Token與groupId</span>
+  <span class="kd">var</span> <span class="nx">bot</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TelegramBot</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="p">{</span><span class="na">polling</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
+  <span class="c1">//使用Long Polling的方式與Telegram伺服器建立連線</span>
+  <span class="c1">//收到Start訊息時會觸發這段程式</span>
+  <span class="nx">bot</span><span class="p">.</span><span class="nf">onText</span><span class="p">(</span><span class="sr">/</span><span class="se">\/</span><span class="sr">start/</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">chatId</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">chat</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="c1">//用戶的ID</span>
+      <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">你好</span><span class="dl">'</span><span class="p">;</span> <span class="c1">//括號裡面的為回應內容，可以隨意更改</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span><span class="nx">chatId</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span> <span class="c1">//發送訊息的function</span>
+  <span class="p">});</span>
+	
+  <span class="c1">//收到/cal開頭的訊息時會觸發這段程式</span>
+  <span class="nx">bot</span><span class="p">.</span><span class="nf">onText</span><span class="p">(</span><span class="sr">/</span><span class="se">\/</span><span class="sr">cal </span><span class="se">(</span><span class="sr">.+</span><span class="se">)</span><span class="sr">/</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span> <span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">fromId</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="k">from</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="c1">//用戶的ID</span>
+      <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">[^</span><span class="sr">-()</span><span class="se">\d/</span><span class="sr">*+.</span><span class="se">]</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">''</span><span class="p">);</span>
+      <span class="c1">// match[1]的意思是 /cal 後面的所有內容</span>
+      <span class="nx">resp</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">計算結果為: </span><span class="dl">'</span> <span class="o">+</span> <span class="nf">eval</span><span class="p">(</span><span class="nx">resp</span><span class="p">);</span>
+      <span class="c1">// eval是用作執行計算的function</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span><span class="nx">fromId</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span> <span class="c1">//發送訊息的function</span>
+  <span class="p">});</span>
+
+  <span class="nf">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">bot</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span> <span class="nx">groupId</span><span class="p">,</span> <span class="dl">"</span><span class="s2">加薪可不可以</span><span class="dl">"</span> <span class="p">);</span> <span class="c1">//發送訊息的function</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Salary Up Up!</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="參考資料">參考資料</h2>
+<ul>
+  <li><a href="https://github.com/yagop/node-telegram-bot-api">Node.js Telegram Bot API</a></li>
+  <li><a href="https://github.com/yagop/node-telegram-bot-api/blob/master/doc/api.md">API Reference</a></li>
+</ul>]]></content><author><name>Oliver Liu</name></author><category term="markdown" /><category term="Message" /><category term="Node" /><summary type="html"><![CDATA[如何建立 Telegram Bot 並透過 Node.js 使用]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://oliver-liou.github.io/assets/images/Telegram-Coin-Logo.jpg" /><media:content medium="image" url="https://oliver-liou.github.io/assets/images/Telegram-Coin-Logo.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
